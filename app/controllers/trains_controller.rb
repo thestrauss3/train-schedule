@@ -1,4 +1,5 @@
 class TrainsController < ApplicationController
-  def index
+  def show
+    @train = Train.find(params[:id])
   end
 end

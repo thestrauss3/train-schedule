@@ -10,10 +10,19 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170420125647) do
+ActiveRecord::Schema.define(version: 20170501122734) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "stations", force: :cascade do |t|
+    t.string   "name",          null: false
+    t.integer  "train_line_id"
+    t.boolean  "has_wifi"
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
+    t.index ["train_line_id"], name: "index_stations_on_train_line_id", using: :btree
+  end
 
   create_table "train_lines", force: :cascade do |t|
     t.string   "name",       null: false
@@ -21,9 +30,20 @@ ActiveRecord::Schema.define(version: 20170420125647) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "train_stops", force: :cascade do |t|
+    t.integer  "train_id",   null: false
+    t.integer  "station_id", null: false
+    t.time     "stop_time",  null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["station_id"], name: "index_train_stops_on_station_id", using: :btree
+    t.index ["train_id"], name: "index_train_stops_on_train_id", using: :btree
+  end
+
   create_table "trains", force: :cascade do |t|
     t.integer  "train_num",     null: false
     t.integer  "train_line_id"
+    t.boolean  "inbound"
     t.datetime "created_at",    null: false
     t.datetime "updated_at",    null: false
     t.index ["train_line_id"], name: "index_trains_on_train_line_id", using: :btree

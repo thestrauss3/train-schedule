@@ -11,10 +11,3 @@ $(function() {
     document.getElementById('app')
   );
 });
-
-$(function() {
-  ReactDOM.render(
-    <SecondApp />,
-    document.getElementById('something')
-  );
-});

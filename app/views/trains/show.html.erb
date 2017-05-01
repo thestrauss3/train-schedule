@@ -1,0 +1,16 @@
+Train #<%= @train.train_num %>
+<div id="show-schedule">
+  <table style="width:100%">
+    <tr>
+      <th>Station</th>
+      <td>Time</th>
+    </tr>
+    <% @train.train_stops.each do |s| %>
+      <tr>
+        <th><%= s.station.name %></th>
+        <td><%= s.stop_time.strftime("%H:%M") %></td>
+
+      </tr>
+    <% end %>
+  </table>
+</div>

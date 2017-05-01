@@ -1,0 +1,11 @@
+<h1><%= @line.name %></h1>
+<ul id="train-list-container">
+  <h3>Trains running on this line:</h3>
+  <ul id="train-list">
+    <% @line.trains.each do |t| %>
+      <li><%= link_to t.train_num, train_path(t.id) %></li>
+    <% end %>
+  </ul>
+</ul>
+<ul id="station-list-container">
+</ul>
