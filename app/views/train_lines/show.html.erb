@@ -1,11 +1,22 @@
 <h1><%= @line.name %></h1>
-<ul id="train-list-container">
-  <h3>Trains running on this line:</h3>
-  <ul id="train-list">
-    <% @line.trains.each do |t| %>
-      <li><%= link_to t.train_num, train_path(t.id) %></li>
+<ul id="line-schedule-container">
+  <br/>
+  <table id="line-schedule">
+    <h3>Full schedule for the <%= @line.name %>:</h3>
+    <% @line.stations.each do |s| %>
+    <tr>
+      <th id=""><%= s.name %></th>
+      <% @line.trains.each do |t| %>
+
+      <td style="width:50px;">
+        <% unless TrainStop.where(station: s, train: t).empty? %>
+          <%= TrainStop.where(station: s, train: t)[0].stop_time.strftime("%H:%M") %>
+        <% end %>
+      </td>
+      <% end %>
+    </tr>
     <% end %>
-  </ul>
+  </table>
 </ul>
 <ul id="station-list-container">
 </ul>
