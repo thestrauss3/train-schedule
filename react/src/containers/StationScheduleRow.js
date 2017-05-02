@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import TrainStopStamp from './TrainStopStamp';
 
 class StationScheduleRow extends Component {
   constructor(props) {
@@ -19,17 +20,28 @@ class StationScheduleRow extends Component {
   }
 
   getStopTimes(train_ids) {
-
+    fetch(`/api/v1/train_lines`)
+    .then(response => response.json())
+    .then(body => {
+      this.setState({ lines: body });
+    });
   }
+
   render() {
     let stop_times = this.props.trains.map(train =>{
       return(
-        <p>Hello</p>
+        <TrainStopStamp
+          key = { train.id }
+          train_id = { train.id }
+          station_id = { this.props.id }
+        />
       )
     });
+
     return(
       <tr>
         <th>{this.props.name}</th>
+        {stop_times}
       </tr>
     )
   }

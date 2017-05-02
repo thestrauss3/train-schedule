@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170501122734) do
+ActiveRecord::Schema.define(version: 20170502201329) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -47,6 +47,46 @@ ActiveRecord::Schema.define(version: 20170501122734) do
     t.datetime "created_at",    null: false
     t.datetime "updated_at",    null: false
     t.index ["train_line_id"], name: "index_trains_on_train_line_id", using: :btree
+  end
+
+  create_table "user_favorite_lines", force: :cascade do |t|
+    t.integer  "user_id",       null: false
+    t.integer  "train_line_id", null: false
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
+    t.index ["train_line_id"], name: "index_user_favorite_lines_on_train_line_id", using: :btree
+    t.index ["user_id"], name: "index_user_favorite_lines_on_user_id", using: :btree
+  end
+
+  create_table "user_favorite_stations", force: :cascade do |t|
+    t.integer  "user_id",    null: false
+    t.integer  "station_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["station_id"], name: "index_user_favorite_stations_on_station_id", using: :btree
+    t.index ["user_id"], name: "index_user_favorite_stations_on_user_id", using: :btree
+  end
+
+  create_table "user_favorite_trains", force: :cascade do |t|
+    t.integer  "user_id",    null: false
+    t.integer  "train_id",   null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["train_id"], name: "index_user_favorite_trains_on_train_id", using: :btree
+    t.index ["user_id"], name: "index_user_favorite_trains_on_user_id", using: :btree
+  end
+
+  create_table "users", force: :cascade do |t|
+    t.string   "provider",     null: false
+    t.string   "uid",          null: false
+    t.string   "username",     null: false
+    t.string   "first_name",   null: false
+    t.string   "last_name",    null: false
+    t.string   "email",        null: false
+    t.string   "avatar_url"
+    t.string   "phone_number"
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
   end
 
 end

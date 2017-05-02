@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import TrainRow from '../components/TrainRow';
 import ScheduleHeader from '../components/ScheduleHeader';
-import StationScheduleRow from '../containers/StationScheduleRow'
+import StationScheduleRow from '../containers/StationScheduleRow';
 
 class TrainLineContainer extends Component {
   constructor(props) {
@@ -32,7 +32,6 @@ class TrainLineContainer extends Component {
     .then(body => {
       this.setState({ currentLineName: body.name });
     });
-    return id;
   }
 
   getTrains(id) {
@@ -64,6 +63,7 @@ class TrainLineContainer extends Component {
       return (
         <StationScheduleRow
           key = { station.id }
+          id = { station.id }
           name = { station.name }
           wifi = { station.has_wifi }
           trains = { this.state.trains }
