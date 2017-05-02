@@ -7,8 +7,14 @@ feature "User visits the train_line index" do
 
   scenario "User sees a list of all train lines" do
     visit train_lines_path
-    expect(page).to have_content("Mushroom Cup")
-    expect(page).to have_content("Star Cup")
-    expect(page).to have_content("Special Cup")
+    expect(page).to have_content(line1.name)
+    expect(page).to have_content(line2.name)
+    expect(page).to have_content(line3.name)
+  end
+
+  scenario "Clicking a train line should take the user to that lines page" do
+    visit train_lines_path
+    click_link line1.name
+    expect(page).to have_content "Full schedule for the #{line1.name}"
   end
 end
