@@ -3,26 +3,35 @@
   <head>
     <title>Train Spotter</title>
     <%= csrf_meta_tags %>
-
+    <link href="https://fonts.googleapis.com/css?family=Almendra+SC|Artifika|Cinzel|Kotta+One|Bungee" rel="stylesheet">
     <%= stylesheet_link_tag    'application', media: 'all' %>
     <%= javascript_include_tag 'application' %>
   </head>
 
   <body>
     <header>
-      <div id="header-nav">
+    <div class=" top-bar" >
+      <span class="title">Train Spotter</span>
+
+      <div id="header-nav" class=" top-bar-left">
+
+          <li><%= link_to 'Home' %></li>
+          <li><%= link_to 'About Us' %></li>
+
       </div>
-      <div id=title>
-      This will be my header
+
+      <div class="top-bar-right">
+        <li><%= link_to "Sign Up Now" %></li>
+        <li><%= link_to "Log in" %></li>
+        <li><%= link_to "Log out" %></li>
       </div>
-      <div id="log-in">
-        <%= link_to "Sign Up Now" %>
-        <%= link_to "Log in" %>
-        <%= link_to "Log out" %>
-      </div>
-    </header>
+
+    </div>
+  </header>
+  <div id="body">
     <%= yield %>
     <div id='app'>
     </div>
+  </div>
   </body>
 </html>

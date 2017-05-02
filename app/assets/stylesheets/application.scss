@@ -1,4 +1,5 @@
-// @import "*";
+@import "*";
+
 * {
   margin:0;
   padding:0;
@@ -9,15 +10,45 @@ html, body {
   height: 100%;
 }
 
-header {
+#body {
+  margin:1%;
+}
+
+header, .top-bar, header li {
   background-color: #b2333d;
   text-align: center;
   width: 100%;
-  height: 10%;
+  height: 15%;
 }
+
+header li {
+  list-style-type: none;
+  padding: 0px;
+  margin: 0;
+}
+
+.title {
+  font-size: 300%;
+  font-family: 'Cinzel';
+  font-weight: bold;
+}
+
+#header-nav {
+
+}
+
+#title {
+
+}
+
+#log-in {
+  // columns: 3;
+}
+
 #show-schedule {
   margin: 10px 10% ;
 }
+
 .schedule-header {
   width: 50px;
 }
