@@ -10,7 +10,16 @@
 
   <body>
     <header>
+      <div id="header-nav">
+      </div>
+      <div id=title>
       This will be my header
+      </div>
+      <div id="log-in">
+        <%= link_to "Sign Up Now" %>
+        <%= link_to "Log in" %>
+        <%= link_to "Log out" %>
+      </div>
     </header>
     <%= yield %>
     <div id='app'>
