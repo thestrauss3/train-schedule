@@ -39,16 +39,16 @@ class TrainLineContainer extends Component {
     fetch(`/api/v1/train_lines/${id}/trains`)
     .then(response => response.json())
     .then(body => {
-      this.setState({ trains: body })
-    })
+      this.setState({ trains: body });
+    });
   }
 
   getStations(id) {
     fetch(`/api/v1/train_lines/${id}/stations`)
     .then(response => response.json())
     .then(body => {
-      this.setState({ stations: body })
-    })
+      this.setState({ stations: body });
+    });
   }
 
   render() {
