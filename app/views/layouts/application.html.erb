@@ -10,28 +10,26 @@
 
   <body>
     <header>
-    <div class=" top-bar" >
-      <span class="title">Train Spotter</span>
+      <div class=" top-bar" >
+        <span class="title">Train Spotter</span>
 
-      <div id="header-nav" class=" top-bar-left">
-
+        <div id="header-nav" class=" top-bar-left">
           <li><%= link_to 'Home' %></li>
           <li><%= link_to 'About Us' %></li>
+        </div>
+
+        <div class="top-bar-right">
+          <li><%= link_to "Sign Up Now" %></li>
+          <li><%= link_to "Log in" %></li>
+          <li><%= link_to "Log out" %></li>
+        </div>
 
       </div>
-
-      <div class="top-bar-right">
-        <li><%= link_to "Sign Up Now" %></li>
-        <li><%= link_to "Log in" %></li>
-        <li><%= link_to "Log out" %></li>
+    </header>
+    <div id="body">
+      <%= yield %>
+      <div id='app'>
       </div>
-
     </div>
-  </header>
-  <div id="body">
-    <%= yield %>
-    <div id='app'>
-    </div>
-  </div>
   </body>
 </html>
