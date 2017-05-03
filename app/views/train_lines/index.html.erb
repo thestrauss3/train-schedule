@@ -1,7 +1,0 @@
-<h1>An organized view of Boston's unorganized transportation system</h1>
-<h3>The train lines in Boston are as following</h3>
-<ul>
-  <% @lines.each do |l| %>
-    <li><%= link_to l.name, train_line_path(l.id) %></li>
-  <% end %>
-</ul>

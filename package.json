@@ -3,6 +3,9 @@
   "version": "1.0.0",
   "description": "Navigate the horrible maze that is the MBTA schedule",
   "main": "webpack.config.js",
+  "engines": {
+    "node": "7.9.0"
+  },
   "scripts": {
     "heroku-postbuild": "NODE_ENV=production npm run webpack -- -p",
     "test": "node_modules/.bin/karma start react/karma.conf.js",
