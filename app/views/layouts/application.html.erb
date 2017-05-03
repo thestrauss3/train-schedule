@@ -14,13 +14,16 @@
         <span class="title">Train Spotter</span>
 
         <div id="header-nav" class=" top-bar-left">
-          <li><%= link_to 'Home' %></li>
+          <li><%= link_to 'Home', root_path %></li>
           <li><%= link_to 'About Us' %></li>
         </div>
 
         <div class="top-bar-right">
-          <li><%= link_to "Sign Up Now" %></li>
-          <li><%= link_to "Log in" %></li>
+          <li><%= link_to "Log in or Sign up with Facebook", "/auth/facebook" %></li>
+          <li><%= link_to "Log in or Sign up with Github", "/auth/github" %></li>
+          <% binding.pry %>
+          <a href="https://github.com/login/oauth/authorize?scope=user:email&client_id=<%= ENV["GITHUB_CLIENT_ID"] %>">Click here</a>
+
           <li><%= link_to "Log out" %></li>
         </div>
 
