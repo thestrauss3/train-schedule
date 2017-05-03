@@ -10,7 +10,7 @@
 
   <body>
     <header>
-      <div class=" top-bar" >
+      <div class=" top-bar" data-topbar >
         <span class="title">Train Spotter</span>
 
         <div id="header-nav" class=" top-bar-left">
@@ -19,17 +19,20 @@
         </div>
 
         <div class="top-bar-right">
+          <% if current_user %>
+          <h3><%= current_user.username %></h3>
+          <li><%= link_to "Log out", logout_path, method: :delete %></li>
+          <% else %>
           <li><%= link_to "Log in or Sign up with Facebook", "/auth/facebook" %></li>
           <li><%= link_to "Log in or Sign up with Github", "/auth/github" %></li>
-          <% binding.pry %>
-          <a href="https://github.com/login/oauth/authorize?scope=user:email&client_id=<%= ENV["GITHUB_CLIENT_ID"] %>">Click here</a>
 
-          <li><%= link_to "Log out" %></li>
+          <% end %>
         </div>
 
       </div>
     </header>
     <div id="body">
+
       <%= yield %>
       <div id='app'>
       </div>
