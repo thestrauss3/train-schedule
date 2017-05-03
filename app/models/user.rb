@@ -2,6 +2,13 @@ class User < ApplicationRecord
   validates :provider, :uid, :username, :name, :email, presence: true
   validate :phone_number_must_be_valid
 
+  has_many :user_favorite_lines
+  has_many :train_lines, through: :user_favorite_lines
+  has_many :user_favorite_trains
+  has_many :trains, through: :user_favorite_trains
+  has_many :user_favorite_stations
+  has_many :stations, through: :user_favorite_stations
+
   def self.find_or_create_from_omniauth(auth)
     provider = auth.provider
     uid = auth.uid

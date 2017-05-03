@@ -40,3 +40,36 @@ header li {
 .schedule-header {
   width: 50px;
 }
+
+.container {
+  display: flex;
+  flex-direction: row;
+  background-color: red;
+}
+
+.avatar {
+  height: 50px;
+  width: 50px;
+  margin: 10px;
+}
+
+.favorites-container, .profile-container {
+  margin: 0 10%;
+}
+
+.favorites {
+  flex-grow: 1;
+  text-align: center;
+}
+
+.lines {
+  order: 1;
+}
+
+.trains {
+  order: 2;
+}
+
+.stations {
+  order: 3;
+}

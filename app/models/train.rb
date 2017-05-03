@@ -6,4 +6,6 @@ class Train < ApplicationRecord
   belongs_to :train_line
   has_many :train_stops
   has_many :stations, through: :train_stops
+  has_many :user_favorite_trains
+  has_many :users, through: :user_favorite_trains
 end
