@@ -1,0 +1,24 @@
+<div class="container profile-container">
+  <%= image_tag current_user.avatar_url, class: "avatar" %>
+  <h1><%= current_user.name %></h1>
+</div>
+<div class="container favorites-container">
+  <div class="favorites lines">
+    <h3>Favorite Train Lines</h3>
+    <% current_user.train_lines.each do |l| %>
+      <li><%= link_to l.name, train_line_path(l) %></li>
+    <% end %>
+  </div>
+  <div class="favorites trains">
+    <h3>Favorite Trains</h3>
+    <% current_user.trains.each do |t| %>
+      <li><%= link_to t.name, train_path(t) %></li>
+    <% end %>
+  </div>
+  <div class="favorites stations">
+    <h3>Favorite Stations</h3>
+    <% current_user.stations.each do |s| %>
+      <li><%= link_to s.name, station_path(s) %></li>
+    <% end %>
+  </div>
+</div>
