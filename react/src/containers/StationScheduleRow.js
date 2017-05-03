@@ -19,14 +19,6 @@ class StationScheduleRow extends Component {
     this.getStopTimes(train_ids);
   }
 
-  getStopTimes(train_ids) {
-    fetch(`/api/v1/train_lines`)
-    .then(response => response.json())
-    .then(body => {
-      this.setState({ lines: body });
-    });
-  }
-
   render() {
     let stop_times = this.props.trains.map(train =>{
       return(

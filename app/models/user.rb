@@ -1,6 +1,7 @@
 class User < ApplicationRecord
   validates :provider, :uid, :username, :first_name, :last_name, :email, presence: true
   validate :phone_number_must_be_valid
+  
   def self.find_or_create_from_omniauth(auth)
     provider = auth.provider
     uid = auth.uid
