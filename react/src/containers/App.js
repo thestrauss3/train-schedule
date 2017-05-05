@@ -15,7 +15,8 @@ class App extends Component {
         <Router history={browserHistory}>
           <Route path='/' component={HomePage} />
           <Route path='/train_lines' component={TrainLinesContainer} />
-          <Route path='train_lines/:id' component={TrainLineContainer} />
+          <Route path='/train_lines/:id' component={TrainLineContainer} />
+          <Route path='/users/:id' />
         </Router>
       </div>
     )
