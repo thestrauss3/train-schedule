@@ -17,19 +17,19 @@ class TrainLineContainer extends Component {
       trains: [],
       branches: []
     };
-    this.handleChangeBranch = this.handleChangeBranch.bind(this)
+    this.handleChangeBranch = this.handleChangeBranch.bind(this);
   }
 
   handleChangeBranch(event) {
-    this.setState({ currentDirection: event.target.value })
+    this.setState({ currentDirection: event.target.value });
   }
 
   componentDidMount() {
     let id = location.href.match(/([^\/]*)\/*$/)[1];
-    let midnight = (new Date).setHours(0,0,0,0) / 1000;
+    let midnight = (new Date()).setHours(0,0,0,0) / 1000;
     this.setState({ currentLineId: id });
     this.getCurrentLine(id, midnight);
-    this.getStations(id)
+    this.getStations(id);
   }
 
   getStations(id) {
@@ -37,18 +37,18 @@ class TrainLineContainer extends Component {
     .then(response => response.json())
     .then(body => {
       let branch = body.direction.filter((d) => {
-        return d.direction_name == this.state.currentDirection
-      })
-      if (branch.length == 0) {
-        branch = body.direction[0]
+        return d.direction_name == this.state.currentDirection;
+      });
+      if (branch.length === 0) {
+        branch = body.direction[0];
       }
-      return branch
+      return branch;
     })
     .then(body => {
       this.setState({
         stations: body.stop
-      })
-    })
+      });
+    });
   }
 
   getCurrentLine(id, midnight) {
@@ -59,15 +59,15 @@ class TrainLineContainer extends Component {
       let direction = this.state.currentDirection == "Inbound" ? 1 : 0;
       let branches = [];
       body.direction.forEach((d) => {
-        branches.push(d.direction_name)
-      })
+        branches.push(d.direction_name);
+      });
       this.setState({
         branches: branches
-      })
-      return body.direction[direction]
+      });
+      return body.direction[direction];
     })
     .then(body => {
-      let trainsState = []
+      let trainsState = [];
       body.trip.forEach((trip) => {
         let fullName = trip.trip_name;
         let trainNum = trip.trip_name.split(' ')[0];
