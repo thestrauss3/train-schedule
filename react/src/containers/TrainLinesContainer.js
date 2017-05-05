@@ -20,20 +20,27 @@ class TrainLinesContainer extends Component {
   }
 
   getLines() {
-    fetch(`/api/v1/train_lines`)
+    // fetch(`/api/v1/train_lines`)
+    // .then(response => response.json())
+    // .then(body => {
+    //   this.setState({ lines: body });
+    // });
+    fetch('http://realtime.mbta.com/developer/api/v2/routes?api_key=RfQnjyQA7EecUcMOjtbp0Q&format=json')
     .then(response => response.json())
-    .then(body => {
-      this.setState({ lines: body });
-    });
+    .then(body => body.mode[2].route)
+    .then(commuter_rail => {
+      this.setState({ lines: commuter_rail })
+    })
   }
 
   render() {
+
     let lines = this.state.lines.map(line => {
       return(
         <TrainLineTile
-        key = { line.id }
-        id = { line.id }
-        name = { line.name }
+        key = { line.route_id }
+        id = { line.route_id }
+        name = { line.route_name }
         />
       )
     })

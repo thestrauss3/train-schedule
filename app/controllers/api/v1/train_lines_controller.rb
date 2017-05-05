@@ -3,9 +3,9 @@ class Api::V1::TrainLinesController < ApiController
     lines = TrainLine.all
     render json: lines
   end
-  
-  def show
-    @line = TrainLine.find(params[:id])
-    render json: @line
-  end
+
+  # def show
+  #   @line = TrainLine.find(params[:id])
+  #   render json: @line
+  # end
 end
