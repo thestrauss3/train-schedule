@@ -1,3 +1,5 @@
+'esversion: 6';
+
 import React, { Component } from 'react';
 
 const BranchDropDown = props => {

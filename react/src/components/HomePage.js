@@ -4,10 +4,15 @@ import { Link } from 'react-router';
 const HomePage = props => {
   return (
       <div>
-        <h1>Welcome to Train Spotter</h1>
+        <h1>Welcome to Train Spotter</h1><br/>
         <ul>
-        <Link to={`/train_lines`}>See all of Bostons super awesome incrdbly time train schedulings</Link>
+        <Link to={`/train_lines`}>Boston Train Lines</Link>
         </ul>
+        <br/><br/><br/>
+        <p>Train Spotter is currently still being built up to it's full capabilities.
+        Soon this landing page will provide links to schedules for trains all over
+        the US in major cities. Currently only Boston is available, but more schedules
+        will be added soon.</p>
       </div>
   )
 }

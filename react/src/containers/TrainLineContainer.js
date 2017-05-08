@@ -1,3 +1,5 @@
+'esversion: 6';
+
 import React, { Component } from 'react';
 import TrainRow from '../components/TrainRow';
 import ScheduleHeader from '../components/ScheduleHeader';
