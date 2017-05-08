@@ -11,11 +11,11 @@
   <body>
     <header>
       <div class=" top-bar" data-topbar >
-        <span class="title">Train Spotter</span>
 
         <div id="header-nav" class=" top-bar-left">
           <li><%= link_to 'Home', root_path %></li>
-          <li><%= link_to 'About Us' %></li>
+          <li><%= link_to 'About Us', about_path %></li>
+          <li><%= link_to 'Boston Trains', train_lines_path %></li>
         </div>
 
         <div class="top-bar-right">
@@ -29,6 +29,7 @@
           <% end %>
         </div>
 
+        <div class="title">Train Spotter<br/><div class="sub-title">An organized view of Boston's unorganized transportation system</div></div>
       </div>
     </header>
     <div id="body">

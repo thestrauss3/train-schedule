@@ -11,7 +11,8 @@ class StationScheduleRow extends Component {
   }
 
   componentDidMount() {
-    let train_ids = this.props.trains.map(train => {
+
+    let train_ids = this.props.trains.trains.map(train => {
       return(
         train.id
       )
@@ -20,7 +21,7 @@ class StationScheduleRow extends Component {
   }
 
   render() {
-    let stop_times = this.props.trains.map(train =>{
+    let stop_times = this.props.trains.trains.map(train =>{
       let train_stop = train.stops.filter((stop) => {
         return stop.stop_id == this.props.id
       }, this)

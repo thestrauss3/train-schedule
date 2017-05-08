@@ -12,16 +12,31 @@ class TrainLineContainer extends Component {
     this.state = {
       currentLineId: "",
       currentLineName: "",
-      currentDirection: "",
-      stations: [],
-      trains: [],
+      currentDirectionName: "",
+      currentDirectionId: 0,
+      stations: {
+        direction: [{
+          direction_id: "0",
+          direction_name: "null",
+          stop: []
+        }]
+      },
+      trains: [{
+        trains: []
+      }],
       branches: []
     };
     this.handleChangeBranch = this.handleChangeBranch.bind(this);
   }
 
   handleChangeBranch(event) {
-    this.setState({ currentDirection: event.target.value });
+    let directionId = this.state.stations.direction.filter((d) => {
+      return d.direction_name == event.target.value
+    })
+    this.setState({
+      currentDirectionName: event.target.value,
+      currentDirectionId: directionId[0].direction_id
+    });
   }
 
   componentDidMount() {
@@ -32,21 +47,18 @@ class TrainLineContainer extends Component {
     this.getStations(id);
   }
 
+  componentDidUpdate(prevProps, prevState) {
+
+  }
+
   getStations(id) {
     fetch(`http://realtime.mbta.com/developer/api/v2/stopsbyroute?api_key=RfQnjyQA7EecUcMOjtbp0Q&route=${id}`)
     .then(response => response.json())
     .then(body => {
-      let branch = body.direction.filter((d) => {
-        return d.direction_name == this.state.currentDirection;
-      });
-      if (branch.length === 0) {
-        branch = body.direction[0];
-      }
-      return branch;
-    })
-    .then(body => {
       this.setState({
-        stations: body.stop
+        currentDirectionId: body.direction[0].direction_id,
+        currentDirectionName: body.direction[0].direction_name,
+        stations: body
       });
     });
   }
@@ -56,7 +68,6 @@ class TrainLineContainer extends Component {
     .then(response => response.json())
     .then(body => {
       this.setState({ currentLineName: body.route_name });
-      let direction = this.state.currentDirection == "Inbound" ? 1 : 0;
       let branches = [];
       body.direction.forEach((d) => {
         branches.push(d.direction_name);
@@ -64,23 +75,31 @@ class TrainLineContainer extends Component {
       this.setState({
         branches: branches
       });
-      return body.direction[direction];
+      return body.direction;
     })
     .then(body => {
       let trainsState = [];
-      body.trip.forEach((trip) => {
-        let fullName = trip.trip_name;
-        let trainNum = trip.trip_name.split(' ')[0];
-        let stops = [];
-        trip.stop.forEach((stop) => {
-          stops.push(stop);
+      body.forEach((branch) => {
+        let branchState = []
+        branch.trip.forEach((trip) => {
+          let fullName = trip.trip_name;
+          let trainNum = trip.trip_name.split(' ')[0];
+          let stops = [];
+          trip.stop.forEach((stop) => {
+            stops.push(stop);
+          });
+          let trainState = {
+            fullName: fullName,
+            trainNum: trainNum,
+            stops: stops
+          };
+          branchState.push(trainState);
         });
-        let trainState = {
-          fullName: fullName,
-          trainNum: trainNum,
-          stops: stops
-        };
-        trainsState.push(trainState);
+        branchState = {
+          direction_id: branch.direction_id,
+          trains: branchState
+        }
+        trainsState.push(branchState)
       });
       this.setState({
         trains: trainsState
@@ -89,7 +108,8 @@ class TrainLineContainer extends Component {
   }
 
   render() {
-    let trainNumsTile = this.state.trains.map(train => {
+
+    let trainNumsTile = this.state.trains[this.state.currentDirectionId].trains.map(train => {
       return(
         <ScheduleHeader
           key = { train.id }
@@ -97,35 +117,37 @@ class TrainLineContainer extends Component {
         />
       )
     })
-    let allStations = this.state.stations.map(station => {
+    let stops = this.state.stations.direction[this.state.currentDirectionId].stop //
+    let allStations = stops.map(station => {
       return (
         <StationScheduleRow
           key = { station.stop_id }
           stop_sequence = { station.stop_sequence }
           id = { station.stop_id }
           name = { station.stop_name }
-          trains = { this.state.trains }
-          currentDirection = { this.state.currentDirection }
+          trains = { this.state.trains[this.state.currentDirectionId] }
+          currentDirection = { this.state.currentDirectionName }
         />
       )
     }, this)
     let links = [
       {location: "Home",
       url: `/`},
-      {location: "Train Lines",
+      {location: "Boston Lines",
       url: '/train_lines'}
     ]
     return (
       <div>
         <LinkBar
           links = { links }
-          currentPage = { links }
+          currentPage = { this.state.currentLineId }
         />
-        <h3>Full schedule for the {this.state.currentLineName}</h3>
+        <h3>{this.state.currentLineName}</h3>
         <BranchDropDown
           branches = { this.state.branches }
-          currentDirection = { this.state.currentDirection }
+          currentDirection = { this.state.currentDirectionName }
           onChange = { this.handleChangeBranch }
+          id = {"whatever"}
         />
         <table id="line-schedule">
           <thead><tr><th className="schedule-header-corner">Train Number</th>{ trainNumsTile }</tr></thead>
