@@ -22,7 +22,6 @@ class TrainStopStamp extends Component {
   }
 
   render() {
-    console.log(this.props)
     return (
       <td className="schedule schedule-square">
         { this.props.stopTime }

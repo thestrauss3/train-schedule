@@ -1,9 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router';
-import TrainRow from '../components/TrainRow';
 import TrainLineTile from '../components/TrainLineTile';
-import ScheduleHeader from '../components/ScheduleHeader';
-import StationScheduleRow from '../containers/StationScheduleRow';
+import LinkBar from '../components/LinkBar';
 
 class TrainLinesContainer extends Component {
   constructor(props) {
@@ -44,9 +42,18 @@ class TrainLinesContainer extends Component {
         />
       )
     })
+    let links = [
+      {location: "Home",
+      url: `/`}
+    ]
+    let currentPage = "Boston Lines"
     return (
       <div>
-        <h1>An organized view of Boston's unorganized transportation system</h1>
+        <LinkBar
+          links = { links }
+          currentPage = { currentPage }
+        />
+        <h1></h1>
         <h3>The train lines in Boston are as following</h3>
         <ul>
         {lines}

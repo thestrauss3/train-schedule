@@ -2,12 +2,13 @@ import React, { Component } from 'react';
 
 const BranchDropDown = props => {
   let choices = props.branches.map((b) => {
+    // debugger
     return(
-      <option >{b}</option>
+      <option  id={`${b}`}>{b}</option>
     )
   })
   return (
-    <div class="dropdown">
+    <div className="dropdown">
       <select onChange={props.onChange}>
         {choices}
       </select>
