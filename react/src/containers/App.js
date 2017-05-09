@@ -1,5 +1,3 @@
-'esversion: 6';
-
 import React, { Component } from 'react';
 import { Router, Route, Link, browserHistory, IndexRoute } from 'react-router';
 import TrainLineContainer from './TrainLineContainer';

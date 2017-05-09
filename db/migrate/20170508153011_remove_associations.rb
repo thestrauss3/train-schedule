@@ -4,6 +4,7 @@ class RemoveAssociations < ActiveRecord::Migration[5.0]
     remove_column :user_favorite_lines, :train_line_id
     remove_column :user_favorite_trains, :train_id
   end
+  
   def down
     change_table :user_favorite_trains do |t|
       t.belongs_to :train

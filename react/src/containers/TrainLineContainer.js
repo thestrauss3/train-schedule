@@ -1,5 +1,3 @@
-'esversion: 6';
-
 import React, { Component } from 'react';
 import TrainRow from '../components/TrainRow';
 import ScheduleHeader from '../components/ScheduleHeader';
@@ -63,7 +61,7 @@ class TrainLineContainer extends Component {
     fetch(`/api/v1/users/toggle_favorite_train_line?line=${this.state.currentLineId}&toggle=false`, { credentials: 'same-origin' })
     .then(response => response.json())
     .then(body => {
-      
+
       this.setState({ favoriteLine: body });
     });
   }
