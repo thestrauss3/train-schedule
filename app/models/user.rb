@@ -14,7 +14,7 @@ class User < ApplicationRecord
       user.provider = provider
       user.uid = uid
       user.email = auth.info.email
-      user.username = auth.info.nickname
+      user.username = auth.info.nickname ? auth.info.nickname : auth.info.name
       user.avatar_url = auth.info.image
       user.name = auth.info.name
     end
