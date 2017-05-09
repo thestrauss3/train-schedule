@@ -58,8 +58,16 @@ header li {
   text-align: center;
 }
 
+.full-width {
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+  max-width: initial;
+}
 
-
+.title {
+  text-align: center;
+}
 
 
 /* Dropdown Button */

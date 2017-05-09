@@ -82,7 +82,7 @@ class TrainLineContainer extends Component {
   }
 
   getStations(id) {
-    fetch(`http://realtime.mbta.com/developer/api/v2/stopsbyroute?api_key=RfQnjyQA7EecUcMOjtbp0Q&route=${id}`)
+    fetch(`https://realtime.mbta.com/developer/api/v2/stopsbyroute?api_key=RfQnjyQA7EecUcMOjtbp0Q&route=${id}`)
     .then(response => response.json())
     .then(body => {
       this.setState({
@@ -94,7 +94,7 @@ class TrainLineContainer extends Component {
   }
 
   getCurrentLine(id, midnight) {
-    fetch(`http://realtime.mbta.com/developer/api/v2/schedulebyroute?api_key=RfQnjyQA7EecUcMOjtbp0Q&route=${id}&max_trips=100&max_time=1440&datetime=${midnight}`)
+    fetch(`https://realtime.mbta.com/developer/api/v2/schedulebyroute?api_key=RfQnjyQA7EecUcMOjtbp0Q&route=${id}&max_trips=100&max_time=1440&datetime=${midnight}`)
     .then(response => response.json())
     .then(body => {
       this.setState({ currentLineName: body.route_name });
