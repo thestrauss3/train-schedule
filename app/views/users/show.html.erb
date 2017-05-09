@@ -6,7 +6,7 @@
   <div class="favorites lines">
     <h3>Favorite Train Lines</h3>
     <% current_user.user_favorite_lines.each do |l| %>
-      <li><%= link_to l.line_id, train_line_path(l.line_id) %></li>
+      <li><%= link_to l.line_id, train_line_path(l.line_id) %>
     <% end %>
   </div>
   <div class="favorites trains">

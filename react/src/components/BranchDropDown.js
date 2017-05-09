@@ -4,7 +4,6 @@ import React, { Component } from 'react';
 
 const BranchDropDown = props => {
   let choices = props.branches.map((b) => {
-    // debugger
     return(
       <option  id={`${b}`}>{b}</option>
     )
