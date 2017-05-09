@@ -3,7 +3,7 @@ class Api::V1::UsersController < ApiController
     @user = current_user
     render json: @user
   end
-  
+
   def toggle_favorite_train_line
     @line = UserFavoriteLine.where(user: current_user, line_id: params[:line])
     if @line.empty?
