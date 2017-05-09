@@ -4,6 +4,7 @@ class FullName < ActiveRecord::Migration[5.0]
     remove_column :users, :first_name
     remove_column :users, :last_name
   end
+
   def down
     add_column :users, :first_name, :string
     add_column :users, :last_name, :string

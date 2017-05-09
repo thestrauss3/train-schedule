@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170503144113) do
+ActiveRecord::Schema.define(version: 20170508161829) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -50,29 +50,26 @@ ActiveRecord::Schema.define(version: 20170503144113) do
   end
 
   create_table "user_favorite_lines", force: :cascade do |t|
-    t.integer  "user_id",       null: false
-    t.integer  "train_line_id", null: false
-    t.datetime "created_at",    null: false
-    t.datetime "updated_at",    null: false
-    t.index ["train_line_id"], name: "index_user_favorite_lines_on_train_line_id", using: :btree
+    t.integer  "user_id",    null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string   "line_id"
     t.index ["user_id"], name: "index_user_favorite_lines_on_user_id", using: :btree
   end
 
   create_table "user_favorite_stations", force: :cascade do |t|
     t.integer  "user_id",    null: false
-    t.integer  "station_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["station_id"], name: "index_user_favorite_stations_on_station_id", using: :btree
+    t.string   "station_id"
     t.index ["user_id"], name: "index_user_favorite_stations_on_user_id", using: :btree
   end
 
   create_table "user_favorite_trains", force: :cascade do |t|
     t.integer  "user_id",    null: false
-    t.integer  "train_id",   null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["train_id"], name: "index_user_favorite_trains_on_train_id", using: :btree
+    t.string   "train_id"
     t.index ["user_id"], name: "index_user_favorite_trains_on_user_id", using: :btree
   end
 

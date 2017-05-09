@@ -1,5 +1,3 @@
-'esversion: 6';
-
 import React, { Component } from 'react';
 import TrainRow from '../components/TrainRow';
 import ScheduleHeader from '../components/ScheduleHeader';
@@ -16,6 +14,7 @@ class TrainLineContainer extends Component {
       currentLineName: "",
       currentDirectionName: "",
       currentDirectionId: 0,
+      favoriteLine: false,
       stations: {
         direction: [{
           direction_id: "0",
@@ -29,12 +28,39 @@ class TrainLineContainer extends Component {
       branches: []
     };
     this.handleChangeBranch = this.handleChangeBranch.bind(this);
+    this.fetchFavorite = this.fetchFavorite.bind(this);
+    this.handleFavoriteLineToggle = this.handleFavoriteLineToggle.bind(this)
+  }
+
+  getCurrentUser() {
+    fetch(`/api/v1/users/current_user_id`, { credentials: 'same-origin'})
+    .then(response => response.json())
+    .then(body => {
+      this.setState({ currentUser: body });
+    });
+  }
+
+  handleFavoriteLineToggle() {
+    this.fetchFavorite("true");
+  }
+
+  isCurrentLineFavorite() {
+    this.fetchFavorite("false");
+  }
+
+  fetchFavorite(toggleFav) {
+    fetch(`/api/v1/users/toggle_favorite_train_line?line=${this.state.currentLineId}&toggle=${toggleFav}`, { credentials: 'same-origin' })
+    .then(response => response.json())
+    .then(body => {
+
+      this.setState({ favoriteLine: body });
+    });
   }
 
   handleChangeBranch(event) {
     let directionId = this.state.stations.direction.filter((d) => {
-      return d.direction_name == event.target.value
-    })
+      return d.direction_name == event.target.value;
+    });
     this.setState({
       currentDirectionName: event.target.value,
       currentDirectionId: directionId[0].direction_id
@@ -47,6 +73,8 @@ class TrainLineContainer extends Component {
     this.setState({ currentLineId: id });
     this.getCurrentLine(id, midnight);
     this.getStations(id);
+    this.getCurrentUser();
+    this.isCurrentLineFavorite();
   }
 
   componentDidUpdate(prevProps, prevState) {
@@ -110,7 +138,6 @@ class TrainLineContainer extends Component {
   }
 
   render() {
-
     let trainNumsTile = this.state.trains[this.state.currentDirectionId].trains.map(train => {
       return(
         <ScheduleHeader
@@ -144,13 +171,15 @@ class TrainLineContainer extends Component {
           links = { links }
           currentPage = { this.state.currentLineId }
         />
-        <h3>{this.state.currentLineName}</h3>
+        <h3>{ this.state.currentLineName }</h3>
         <BranchDropDown
           branches = { this.state.branches }
           currentDirection = { this.state.currentDirectionName }
           onChange = { this.handleChangeBranch }
           id = {"whatever"}
         />
+        <span> &nbsp;&nbsp;&nbsp;&nbsp; Use this line a lot? &nbsp;
+        <button className="button" onClick={ this.handleFavoriteLineToggle }>Favorite!</button></span>
         <table id="line-schedule">
           <thead><tr><th className="schedule-header-corner">Train Number</th>{ trainNumsTile }</tr></thead>
           <tbody>

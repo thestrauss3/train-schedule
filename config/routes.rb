@@ -20,6 +20,16 @@ Rails.application.routes.draw do
           resources :train_stops, only: [:index]
         end
       end
+
+      resources :users, only: [:index, :show] do
+        resources :trains, only: []
+        resources :stations, only: []
+        resources :train_lines, only: []
+        collection do
+          get 'current_user_id'
+          get 'toggle_favorite_train_line'
+        end
+      end
     end
   end
   get '/auth/:provider/callback', to: 'sessions#create'

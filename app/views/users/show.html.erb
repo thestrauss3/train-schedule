@@ -5,20 +5,20 @@
 <div class="container favorites-container">
   <div class="favorites lines">
     <h3>Favorite Train Lines</h3>
-    <% current_user.train_lines.each do |l| %>
-      <li><%= link_to l.name, train_line_path(l) %></li>
+    <% current_user.user_favorite_lines.each do |l| %>
+      <li><%= link_to l.line_id, train_line_path(l.line_id) %>
     <% end %>
   </div>
   <div class="favorites trains">
     <h3>Favorite Trains</h3>
-    <% current_user.trains.each do |t| %>
-      <li><%= link_to t.name, train_path(t) %></li>
+    <% current_user.user_favorite_trains.each do |l| %>
+      <li>hi</li>
     <% end %>
   </div>
   <div class="favorites stations">
     <h3>Favorite Stations</h3>
-    <% current_user.stations.each do |s| %>
-      <li><%= link_to s.name, station_path(s) %></li>
+    <% current_user.user_favorite_stations.each do |l| %>
+      <li>hi</li>
     <% end %>
   </div>
 </div>

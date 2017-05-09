@@ -1,6 +1,6 @@
 class UserFavoriteTrain < ApplicationRecord
-  validates :user, :train, null: false
+  validates :user, :train_id, null: false
 
   belongs_to :user
-  belongs_to :train
+  # belongs_to :train
 end
