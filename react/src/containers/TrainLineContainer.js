@@ -28,21 +28,31 @@ class TrainLineContainer extends Component {
       branches: []
     };
     this.handleChangeBranch = this.handleChangeBranch.bind(this);
-    this.handleFavoriteLineToggle = this.handleFavoriteLineToggle.bind(this);
+    this.fetchFavorite = this.fetchFavorite.bind(this);
+    this.handleFavoriteLineToggle = this.handleFavoriteLineToggle.bind(this)
   }
 
   getCurrentUser() {
     fetch(`/api/v1/users/current_user_id`, { credentials: 'same-origin'})
     .then(response => response.json())
     .then(body => {
-      this.setState({ currentUser: body })
-    })
+      this.setState({ currentUser: body });
+    });
   }
 
   handleFavoriteLineToggle() {
-    fetch(`/api/v1/users/toggle_favorite_train_line?line=${this.state.currentLineId}&toggle=true`, { credentials: 'same-origin' })
+    this.fetchFavorite("true");
+  }
+
+  isCurrentLineFavorite() {
+    this.fetchFavorite("false");
+  }
+
+  fetchFavorite(toggleFav) {
+    fetch(`/api/v1/users/toggle_favorite_train_line?line=${this.state.currentLineId}&toggle=${toggleFav}`, { credentials: 'same-origin' })
     .then(response => response.json())
     .then(body => {
+
       this.setState({ favoriteLine: body });
     });
   }
@@ -54,15 +64,6 @@ class TrainLineContainer extends Component {
     this.setState({
       currentDirectionName: event.target.value,
       currentDirectionId: directionId[0].direction_id
-    });
-  }
-
-  isCurrentLineFavorite() {
-    fetch(`/api/v1/users/toggle_favorite_train_line?line=${this.state.currentLineId}&toggle=false`, { credentials: 'same-origin' })
-    .then(response => response.json())
-    .then(body => {
-
-      this.setState({ favoriteLine: body });
     });
   }
 
