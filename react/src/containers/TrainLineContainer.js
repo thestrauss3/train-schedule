@@ -15,17 +15,16 @@ class TrainLineContainer extends Component {
       currentDirectionName: "",
       currentDirectionId: 0,
       favoriteLine: false,
-      stations: {
-        direction: [{
-          direction_id: "0",
-          direction_name: "null",
-          stop: []
-        }]
-      },
+      stations: { direction: [{
+        direction_id: "0",
+        direction_name: "null",
+        stop: []
+      }]},
       trains: [{
         trains: []
       }],
-      branches: []
+      branches: [],
+      currentUser: null
     };
     this.handleChangeBranch = this.handleChangeBranch.bind(this);
     this.fetchFavorite = this.fetchFavorite.bind(this);
@@ -165,6 +164,12 @@ class TrainLineContainer extends Component {
       {location: "Boston Lines",
       url: '/train_lines'}
     ]
+    let favorite;
+    if (this.state.currentUser) {
+      favorite = <button className="button" onClick={ this.handleFavoriteLineToggle }>Favorite!</button>
+    } else {
+      favorite = "Log in to keep track of your frequently used stops and trains!"
+    }
     return (
       <div>
         <LinkBar
@@ -178,8 +183,7 @@ class TrainLineContainer extends Component {
           onChange = { this.handleChangeBranch }
           id = {"whatever"}
         />
-        <span> &nbsp;&nbsp;&nbsp;&nbsp; Use this line a lot? &nbsp;
-        <button className="button" onClick={ this.handleFavoriteLineToggle }>Favorite!</button></span>
+        <span> &nbsp;&nbsp;&nbsp;&nbsp; Use this line a lot? &nbsp;{favorite}</span>
         <table id="line-schedule">
           <thead><tr><th className="schedule-header-corner">Train Number</th>{ trainNumsTile }</tr></thead>
           <tbody>

@@ -18,11 +18,6 @@ class TrainLinesContainer extends Component {
   }
 
   getLines() {
-    // fetch(`/api/v1/train_lines`)
-    // .then(response => response.json())
-    // .then(body => {
-    //   this.setState({ lines: body });
-    // });
     fetch('https://realtime.mbta.com/developer/api/v2/routes?api_key=RfQnjyQA7EecUcMOjtbp0Q&format=json')
     .then(response => response.json())
     .then(body => body.mode[2].route)
