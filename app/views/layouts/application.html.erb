@@ -9,28 +9,26 @@
   </head>
 
   <body>
-    <header>
-      <div class=" top-bar" data-topbar >
-
-        <div id="header-nav" class=" top-bar-left">
+    <header class="row full-width">
+        <div id="header-nav" class="large-2 columns">
           <li><%= link_to 'Home', root_path %></li>
           <li><%= link_to 'About Us', about_path %></li>
           <li><%= link_to 'Boston Trains', train_lines_path %></li>
         </div>
 
-        <div class="top-bar-right">
+        <div class="title large-8 columns">Train Spotter<br/><div class="sub-title">An organized view of Boston's unorganized transportation system</div></div>
+
+        <div class="large-2 columns">
           <% if current_user %>
-          <h3><%= link_to current_user.name, user_path(current_user.id) %></h3>
-          <li><%= link_to "Log out", logout_path, method: :delete %></li>
+            <h3><%= link_to current_user.name, user_path(current_user.id) %></h3>
+            <li><%= link_to "Log out", logout_path, method: :delete %></li>
           <% else %>
-          <li><%= link_to "Log in or Sign up with Facebook", "/auth/facebook" %></li>
-          <li><%= link_to "Log in or Sign up with Github", "/auth/github" %></li>
+            <h1>Log In</h1>
+            <button onClick=" location.href='/auth/facebook' " class="button" >Facebook</button>
+            <button onClick=" location.href='/auth/github' " class="button" >Github</button>
 
           <% end %>
         </div>
-
-        <div class="title">Train Spotter<br/><div class="sub-title">An organized view of Boston's unorganized transportation system</div></div>
-      </div>
     </header>
     <div id="body">
       <%= yield %>
