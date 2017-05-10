@@ -11,6 +11,9 @@ class StationScheduleRow extends Component {
     }
 
     this.getStops = this.getStops.bind(this)
+    this.fetchFavorite = this.fetchFavorite.bind(this)
+    this.handleFavoriteStationToggle = this.handleFavoriteStationToggle.bind(this);
+    this.isCurrentStationFavorite = this.isCurrentStationFavorite.bind(this)
   }
 
   componentWillReceiveProps(nextProps) {
@@ -57,7 +60,7 @@ class StationScheduleRow extends Component {
   }
 
   fetchFavorite(toggleFav) {
-    fetch(`/api/v1/users/toggle_favorite_station?station=${this.props.id}&toggle=${toggleFav}`, { credentials: 'same-origin' })
+    fetch(`/api/v1/users/toggle_favorite_station?station=${this.props.id}&toggle=${toggleFav}&line=${this.props.line}`, { credentials: 'same-origin' })
     .then(response => response.json())
     .then(body => {
       this.setState({ favorite: body });

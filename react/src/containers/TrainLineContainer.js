@@ -155,6 +155,7 @@ class TrainLineContainer extends Component {
           name = { station.stop_name }
           trains = { this.state.trains[this.state.currentDirectionId] }
           currentDirection = { this.state.currentDirectionName }
+          line = { this.state.currentLineId }
         />
       )
     }, this)

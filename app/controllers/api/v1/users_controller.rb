@@ -6,54 +6,57 @@ class Api::V1::UsersController < ApiController
 
   def toggle_favorite_train_line
     line = UserFavoriteLine.where(user: current_user, line_id: params[:line])
+    toggle = str_to_boolean(params[:toggle])
     if line.empty?
-      if params[:toggle] == "true"
+      favorite_line = false
+      if toggle
         UserFavoriteLine.create(user: current_user, line_id: params[:line])
         favorite_line = true
       end
-      favorite_line = false
     else
-      if params[:toggle] == "true"
-        UserFavoriteLine.where(user: current_user, line_id: params[:line])[0].delete
+      favorite_line = true
+      if toggle
+        line[0].delete
         favorite_line = false
       end
-      favorite_line = true
     end
     render json: favorite_line
   end
 
   def toggle_favorite_train
     train = UserFavoriteTrain.where(user: current_user, train_id: params[:train])
+    toggle = str_to_boolean(params[:toggle])
     if train.empty?
-      if params[:toggle] == "true"
+      favorite_train = false
+      if toggle
         UserFavoriteTrain.create(user: current_user, train_id: params[:train])
         favorite_train = true
       end
-      favorite_train = false
     else
-      if params[:toggle] == "true"
+      favorite_train = true
+      if toggle
         UserFavoriteTrain.where(user: current_user, train_id: params[:train])[0].delete
         favorite_train = false
       end
-      favorite_train = true
     end
     render json: favorite_train
   end
 
   def toggle_favorite_station
-    @station = UserFavoriteStation.where(user: current_user, station_id: params[:station])
+    @station = UserFavoriteStation.where(user: current_user, station_id: params[:station], line_id: params[:line])
+    toggle = str_to_boolean(params[:toggle])
     if @station.empty?
-      if params[:toggle] == "true"
-        UserFavoriteStation.create(user: current_user, station_id: params[:station])
+      favorite_station = false
+      if toggle
+        UserFavoriteStation.create(user: current_user, station_id: params[:station], line_id: params[:line])
         favorite_station = true
       end
-      favorite_station = false
     else
-      if params[:toggle] == "true"
+      favorite_station = true
+      if toggle
         UserFavoriteStation.where(user: current_user, station_id: params[:station])[0].delete
         favorite_station = false
       end
-      favorite_station = true
     end
     render json: favorite_station
   end
