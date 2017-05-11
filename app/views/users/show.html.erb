@@ -12,7 +12,7 @@
   <div class="favorites trains">
     <h3>Favorite Trains</h3>
     <% current_user.user_favorite_trains.each do |t| %>
-      <li>hi</li>
+      <li><%= link_to "#{t.train_num} (#{t.line_id})", train_line_path(t.line_id) %></li>
     <% end %>
   </div>
   <div class="favorites stations">

@@ -85,16 +85,19 @@ class StationScheduleRow extends Component {
         )
       }
     })
-    let favoriteIcon;
+    let favIcon;
+    let favClass;
     if (this.state.favorite) {
-      favoriteIcon = "heart"
+      favIcon = <img className="fav-star" src={assetHelper["gold-star-icon"]} height="25px" width="25px"></img>
+      favClass = " favorite"
     } else {
-      favoriteIcon = "None"
+      favIcon = <img className="fav-star" src={assetHelper["black-star-icon"]} height="25px" width="25px"></img>
+      favClass = ""
     }
     return(
       <tr>
-        <th onClick={ this.handleFavoriteStationToggle } className="schedule-header-row">{this.props.name}{favoriteIcon}</th>
-        {stop_times}
+        <th onClick={ this.handleFavoriteStationToggle } className={`schedule-header-row ${favClass}`}>{this.props.name}{ favIcon }</th>
+        { stop_times }
       </tr>
     )
   }

@@ -142,6 +142,7 @@ class TrainLineContainer extends Component {
         <ScheduleHeader
           key = { train.id }
           num = { train.trainNum }
+          line = { this.state.currentLineId }
         />
       )
     })
