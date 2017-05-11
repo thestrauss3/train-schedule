@@ -138,7 +138,7 @@ header li {
 body {
   // height: 85%;
   margin: 0 0 0 0;
-  background: image_url('train-station-background.jpg') no-repeat center center fixed;
+  background: image_url(asset-path('train-station-background.jpg')) no-repeat center center fixed;
   background-color: lightgrey;
   background-size: cover;
   background-blend-mode: normal;
