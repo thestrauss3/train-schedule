@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import TrainStopStamp from '../components/TrainStopStamp';
+import 'whatwg-fetch';
 
 class StationScheduleRow extends Component {
   constructor(props) {

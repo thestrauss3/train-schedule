@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Link } from 'react-router';
 import TrainLineTile from '../components/TrainLineTile';
 import LinkBar from '../components/LinkBar';
+import 'whatwg-fetch'; 
 
 class TrainLinesContainer extends Component {
   constructor(props) {

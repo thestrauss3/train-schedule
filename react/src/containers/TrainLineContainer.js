@@ -4,6 +4,7 @@ import ScheduleHeader from '../components/ScheduleHeader';
 import StationScheduleRow from './StationScheduleRow';
 import LinkBar from '../components/LinkBar';
 import BranchDropDown from '../components/BranchDropDown';
+import 'whatwg-fetch'; 
 
 class TrainLineContainer extends Component {
   constructor(props) {

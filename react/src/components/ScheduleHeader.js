@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import 'whatwg-fetch'; 
 
 class ScheduleHeader extends Component {
   constructor(props) {
