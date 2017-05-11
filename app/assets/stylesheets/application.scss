@@ -25,8 +25,6 @@ header, .top-bar, header li {
   margin-top: 10px
 }
 
-
-
 header li {
   list-style-type: none;
   padding: 0px;
@@ -38,32 +36,12 @@ header li {
   font-family: 'Cinzel';
   font-weight: bold;
   margin-bottom: 0;
+  text-align: center;
 }
 
 .sub-title {
   font-size: 35%;
   margin-top: 0;
-}
-
-.show-schedule {
-  margin: 10px 10% ;
-}
-
-.schedule-header-row, .schedule-header-corner, .schedule-header-column {
-  text-align: center;
-}
-
-.schedule-header-row {
-
-}
-
-.schedule-header-column {
-  padding: 0;
-}
-
-.schedule-square {
-  padding: 0;
-  text-align: center;
 }
 
 .full-width {
@@ -72,11 +50,6 @@ header li {
   margin-right: auto;
   max-width: initial;
 }
-
-.title {
-  text-align: center;
-}
-
 
 /* Dropdown Button */
 .dropbtn {
@@ -123,14 +96,6 @@ header li {
 /* Show the dropdown menu (use JS to add this class to the .dropdown-content container when the user clicks on the dropdown button) */
 .show {display:block;}
 
-.favorite {
-  // background-color: green;
-}
-
-.fav-star {
-  float: right;
-}
-
 .sign-on-button {
   vertical-align: middle;
 }
@@ -147,11 +112,6 @@ body {
 #body {
   background: inherit;
   background-blend-mode: screen;
-}
-
-#line-schedule {
-  padding: 0 10%;
-  overflow: scroll;
 }
 
 thead, tbody {

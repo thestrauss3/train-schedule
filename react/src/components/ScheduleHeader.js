@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import 'whatwg-fetch'; 
+import 'whatwg-fetch';
 
 class ScheduleHeader extends Component {
   constructor(props) {
@@ -38,11 +38,11 @@ class ScheduleHeader extends Component {
     let favIcon;
     let favClass;
     if (this.state.favorite) {
-      favIcon = <img src={assetHelper["gold-star-icon"]} height="25px" width="25px"></img>
+      favIcon = <img className="fav-star" src={assetHelper["gold-star-icon"]}></img>
       favClass = " favorite"
 
     } else {
-      favIcon = <img src={assetHelper["black-star-icon"]} height="25px" width="25px"></img>
+      favIcon = <img className="fav-star" src={assetHelper["black-star-icon"]}></img>
       favClass = ""
     }
     return (

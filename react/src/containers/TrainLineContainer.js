@@ -34,11 +34,11 @@ class TrainLineContainer extends Component {
   }
 
   getCurrentUser() {
-    // fetch(`/api/v1/users/current_user_id`, { credentials: 'same-origin'})
-    // .then(response => response.json())
-    // .then(body => {
-    //   this.setState({ currentUser: body });
-    // });
+    fetch(`/api/v1/users/current_user_id`, { credentials: 'same-origin'})
+    .then(response => response.json())
+    .then(body => {
+      this.setState({ currentUser: body });
+    });
   }
 
   handleFavoriteLineToggle() {
@@ -53,7 +53,6 @@ class TrainLineContainer extends Component {
     fetch(`/api/v1/users/toggle_favorite_train_line?line=${this.state.currentLineId}&toggle=${toggleFav}`, { credentials: 'same-origin' })
     .then(response => response.json())
     .then(body => {
-
       this.setState({ favoriteLine: body });
     });
   }
@@ -71,17 +70,6 @@ class TrainLineContainer extends Component {
   componentDidMount() {
     let id = location.href.match(/([^\/]*)\/*$/)[1];
     this.setState({ currentLineId: id }, this.getData);
-    // this.calcTime();
-  }
-
-  calcTime() {
-    let time = this.state.total_time + 10;
-    this.setState({
-      total_time: time
-    }, () => {
-      window.setTimeout(this.calcTime, 1000);
-    });
-    debugger
   }
 
   getData() {
@@ -89,13 +77,6 @@ class TrainLineContainer extends Component {
     this.getStations();
     this.getCurrentUser();
     this.isCurrentLineFavorite();
-  }
-
-  componentDidUpdate(prevProps, prevState) {
-
-  }
-  componentWillUpdate(nextProps, nextState) {
-
   }
 
   getStations() {
@@ -194,9 +175,9 @@ class TrainLineContainer extends Component {
 
     let favIcon;
     if (this.state.favoriteLine ) {
-      favIcon = <img className="fav-star" src={assetHelper["gold-star-icon"]} height="25px" width="25px"></img>
+      favIcon = <img className="fav-line-star fav-star" src={assetHelper["gold-star-icon"]}onClick={ this.handleFavoriteLineToggle }></img>
     } else {
-      favIcon = <img className="fav-star" src={assetHelper["black-star-icon"]} height="25px" width="25px"></img>
+      favIcon = <img className="fav-line-star fav-star" src={assetHelper["black-star-icon"]} onClick={ this.handleFavoriteLineToggle }></img>
     }
 
     let favorite;
@@ -207,24 +188,28 @@ class TrainLineContainer extends Component {
     }
     return (
       <div>
-        <LinkBar
-        links = { links }
-        currentPage = { this.state.currentLineId }
-        />
-        <h3>{ this.state.currentLineName } { favIcon }</h3>
-        <BranchDropDown
-        branches = { this.state.branches }
-        currentDirection = { this.state.currentDirectionName }
-        onChange = { this.handleChangeBranch }
-        id = {"whatever"}
-        />
-        <span> &nbsp;&nbsp;&nbsp;&nbsp; Use this line a lot? &nbsp;{favorite}</span>
-        <table id="line-schedule">
-          <thead><tr><th className="schedule-header-corner">Train Number</th>{ trainNumsTile }</tr></thead>
-          <tbody>
-          {allStations}
-          </tbody>
-        </table>
+        <div className="train-line-header">
+          <LinkBar
+          links = { links }
+          currentPage = { this.state.currentLineId }
+          />
+          <h3>{ this.state.currentLineName } { favIcon }</h3>
+          <BranchDropDown
+          branches = { this.state.branches }
+          currentDirection = { this.state.currentDirectionName }
+          onChange = { this.handleChangeBranch }
+          id = {"whatever"}
+          />
+          <span> &nbsp;&nbsp;&nbsp;&nbsp; Use this line a lot? &nbsp;{favorite}</span>
+        </div>
+        <div className="table-div">
+          <table id="line-schedule">
+            <thead><tr><th className="schedule-header-corner schedule-header-row">Train Number</th>{ trainNumsTile }</tr></thead>
+            <tbody>
+            {allStations}
+            </tbody>
+          </table>
+        </div>
       </div>
     )
   }
