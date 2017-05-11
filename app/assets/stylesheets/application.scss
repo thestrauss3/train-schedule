@@ -5,12 +5,21 @@
   padding:0;
 }
 
-html, body {
+html, body, #app, .react-body {
   height: 100%;
+}
+.react-body {
+  padding-bottom: 10%;
 }
 
 #body {
-  margin:1%;
+  margin:10%;
+  margin-bottom: 0;
+  border-radius: 6% 6% 0 0;
+  padding: 2% 10% 5% 10%;
+  height: 85%;
+  width: 80%;
+  position: fixed;
 }
 
 header, .top-bar, header li {
@@ -35,12 +44,12 @@ header li {
   font-size: 300%;
   font-family: 'Cinzel';
   font-weight: bold;
-  margin-bottom: 0;
+  margin-bottom: -5px;
   text-align: center;
 }
 
 .sub-title {
-  font-size: 35%;
+  font-size: 80%;
   margin-top: 0;
 }
 

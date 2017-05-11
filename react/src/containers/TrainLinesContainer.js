@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Link } from 'react-router';
 import TrainLineTile from '../components/TrainLineTile';
 import LinkBar from '../components/LinkBar';
-import 'whatwg-fetch'; 
+import 'whatwg-fetch';
 
 class TrainLinesContainer extends Component {
   constructor(props) {
@@ -23,8 +23,8 @@ class TrainLinesContainer extends Component {
     .then(response => response.json())
     .then(body => body.mode[2].route)
     .then(commuter_rail => {
-      this.setState({ lines: commuter_rail })
-    })
+      this.setState({ lines: commuter_rail });
+    });
   }
 
   render() {

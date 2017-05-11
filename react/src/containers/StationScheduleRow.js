@@ -4,12 +4,12 @@ import 'whatwg-fetch';
 
 class StationScheduleRow extends Component {
   constructor(props) {
-    super(props)
+    super(props);
 
     this.state = {
       stops: [],
       favorite: false
-    }
+    };
 
     this.getStops = this.getStops.bind(this)
     this.fetchFavorite = this.fetchFavorite.bind(this)
@@ -19,13 +19,14 @@ class StationScheduleRow extends Component {
 
   componentWillReceiveProps(nextProps) {
     this.getStops(nextProps)
+    this.isCurrentStationFavorite(nextProps);
   }
 
   getStops(nextProps) {
     let stop_times = nextProps.trains.map(train =>{
       let train_stop = train.stops.filter((stop) => {
         return stop.stop_id == nextProps.id
-      }, this)
+      }, this);
       if (train_stop[0]) {
         let stopDateTime = new Date(train_stop[0].sch_arr_dt * 1000);
         let hours = stopDateTime.getHours();
@@ -48,19 +49,19 @@ class StationScheduleRow extends Component {
 
   componentDidMount() {
     this.getStops(this.props)
-    this.isCurrentStationFavorite();
+    this.isCurrentStationFavorite(this.props);
   }
 
   handleFavoriteStationToggle() {
-    this.fetchFavorite("true");
+    this.fetchFavorite("true", this.props);
   }
 
-  isCurrentStationFavorite() {
-    this.fetchFavorite("false");
+  isCurrentStationFavorite(props) {
+    this.fetchFavorite("false", props);
   }
 
-  fetchFavorite(toggleFav) {
-    fetch(`/api/v1/users/toggle_favorite_station?station=${this.props.id}&toggle=${toggleFav}&line=${this.props.line}`, { credentials: 'same-origin' })
+  fetchFavorite(toggleFav, props) {
+    fetch(`/api/v1/users/toggle_favorite_station?station=${props.id}&toggle=${toggleFav}&line=${props.line}`, { credentials: 'same-origin' })
     .then(response => response.json())
     .then(body => {
       this.setState({ favorite: body });

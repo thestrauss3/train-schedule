@@ -30,7 +30,7 @@ class TrainLineContainer extends Component {
     };
     this.handleChangeBranch = this.handleChangeBranch.bind(this);
     this.fetchFavorite = this.fetchFavorite.bind(this);
-    this.handleFavoriteLineToggle = this.handleFavoriteLineToggle.bind(this)
+    this.handleFavoriteLineToggle = this.handleFavoriteLineToggle.bind(this);
   }
 
   getCurrentUser() {
@@ -109,7 +109,7 @@ class TrainLineContainer extends Component {
     .then(body => {
       let trainsState = [];
       body.forEach((branch) => {
-        let branchState = []
+        let branchState = [];
         branch.trip.forEach((trip) => {
           let fullName = trip.trip_name;
           let trainNum = trip.trip_name.split(' ')[0];
@@ -127,8 +127,8 @@ class TrainLineContainer extends Component {
         branchState = {
           direction_id: branch.direction_id,
           trains: branchState
-        }
-        trainsState.push(branchState)
+        };
+        trainsState.push(branchState);
       });
       this.setState({
         trains: trainsState
@@ -179,15 +179,12 @@ class TrainLineContainer extends Component {
     } else {
       favIcon = <img className="fav-line-star fav-star" src={assetHelper["black-star-icon"]} onClick={ this.handleFavoriteLineToggle }></img>
     }
-
-    let favorite;
-    if (this.state.currentUser) {
-      favorite = <button className="button" onClick={ this.handleFavoriteLineToggle }>Favorite!</button>
-    } else {
-      favorite = "Log in to keep track of your frequently used stops and trains!"
+    let favoritePromptLog;
+    if (!this.state.currentUser) {
+      favoritePromptLog = <span>  Log in to keep track of frequently used trains!</span>
     }
     return (
-      <div>
+      <div className="train-line-container">
         <div className="train-line-header">
           <LinkBar
           links = { links }
@@ -200,7 +197,7 @@ class TrainLineContainer extends Component {
           onChange = { this.handleChangeBranch }
           id = {"whatever"}
           />
-          <span> &nbsp;&nbsp;&nbsp;&nbsp; Use this line a lot? &nbsp;{favorite}</span>
+          {favoritePromptLog}
         </div>
         <div className="table-div">
           <table id="line-schedule">

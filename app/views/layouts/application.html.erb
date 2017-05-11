@@ -2,7 +2,7 @@
 <html>
   <head>
     <title>Train Spotter</title>
-    <%= csrf_meta_tags %>
+    <meta name="viewport" content="width=device-width,initial-scale=1" charset="utf-8">
     <link href="https://fonts.googleapis.com/css?family=Almendra+SC|Artifika|Cinzel|Kotta+One|Bungee" rel="stylesheet">
     <%= stylesheet_link_tag    'application', media: 'all' %>
     <%= javascript_include_tag 'application' %>
@@ -16,7 +16,7 @@
           <li><%= link_to 'Boston Trains', train_lines_path %></li>
         </div>
 
-        <div class="title large-6 columns">Train Spotter<br/><div class="sub-title">An organized view of Boston's unorganized transportation system</div></div>
+        <div class="large-6 columns"><h1 class="title">Train Spotter</h1><h4 class="sub-title">An organized view of Boston's unorganized transportation system</h4></div>
 
         <div class="large-3 columns user-nav">
           <% if current_user %>
