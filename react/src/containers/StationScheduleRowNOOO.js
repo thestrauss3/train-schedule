@@ -18,10 +18,56 @@ class StationScheduleRow extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
+    // console.log("station schedule row will receive props");
+    console.log(nextProps.trains);
+    console.log("will receive props");
     this.getStops(nextProps)
+    // let stop_times = nextProps.trains.map(train =>{
+    //   let train_stop = train.stops.filter((stop) => {
+    //     return stop.stop_id == nextProps.id
+    //   }, this)
+    //   if (train_stop[0]) {
+    //     let stopDateTime = new Date(train_stop[0].sch_arr_dt * 1000);
+    //     let hours = stopDateTime.getHours();
+    //     let minutes = stopDateTime.getMinutes();
+    //     minutes = minutes < 10 ? '0'+ minutes : minutes;
+    //     let stopTime = hours + ":" + minutes;
+    //     return({
+    //       key: train.id,
+    //       stopTime: stopTime,
+    //       trainNum: train.trainNum,
+    //       stopDateTime: stopDateTime,
+    //       stationId: nextProps.id
+    //     })
+    //   } else {
+    //     return (
+    //       null
+    //     )
+    //   }
+    // });
+    // this.setState({ stops: stop_times }, console.log(this.state))
+  }
+
+  shouldComponentUpdate(nextProps, nextState) {
+    console.log("should update");
+    // if (this.props.trains == nextProps.trains) {
+    //   // console.log("station schedule row NOT updating.... NO UPDATE");
+    //   return false
+    // } else {
+    //   return true
+    // }
+  return true
+  }
+
+  componentDidUpdate() {
+    console.log(this.props.trains);
+    console.log("did update");
+    // this.getStops(this.props.trains)
+    // console.log("station schedule row did update");
   }
 
   getStops(nextProps) {
+    console.log("step 2.5");
     let stop_times = nextProps.trains.map(train =>{
       let train_stop = train.stops.filter((stop) => {
         return stop.stop_id == nextProps.id
@@ -40,15 +86,29 @@ class StationScheduleRow extends Component {
           stationId: nextProps.id
         })
       } else {
-        return null
+        return (
+          null
+        )
       }
     });
-    this.setState({ stops: stop_times })
+    this.setState({ stops: stop_times }, console.log(this.state))
   }
 
   componentDidMount() {
-    this.getStops(this.props)
     this.isCurrentStationFavorite();
+    console.log("did mount")
+  }
+
+  // getDefaultProps() {
+  //   console.log("get default props")
+  // }
+  //
+  // getInitialState() {
+  //   console.log("get initial state");
+  // }
+
+  componentWillMount() {
+    console.log("will mount");
   }
 
   handleFavoriteStationToggle() {
@@ -67,20 +127,26 @@ class StationScheduleRow extends Component {
     });
   }
 
+  componentWillUpdate() {
+    console.log("will update");
+  }
   render() {
+    console.log("render");
     let stop_times = this.state.stops.map((stop, index) => {
       if (stop) {
         return(
           <TrainStopStamp
-            key = {index}
-            stationId = {stop.stationId}
-            trainNum = {stop.trainNum}
-            stopDateTime = {stop.stopDateTime}
-            stopTime = {stop.stopTime}
+          key = {index}
+          stationId = {stop.stationId}
+          trainNum = {stop.trainNum}
+          stopDateTime = {stop.stopDateTime}
+          stopTime = {stop.stopTime}
           />
         )
       } else {
-        return <TrainStopStamp key={index} />
+        return (
+          <TrainStopStamp key={index} />
+        )
       }
     })
     let favIcon;

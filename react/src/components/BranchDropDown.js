@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 
 const BranchDropDown = props => {
-  let choices = props.branches.map((b) => {
+  let choices = props.branches.map((b, index) => {
     return(
-      <option  id={`${b}`}>{b}</option>
+      <option key={index} id={`${b}`}>{b}</option>
     )
   })
   return (
