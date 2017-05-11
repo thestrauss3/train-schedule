@@ -4,28 +4,29 @@ import ScheduleHeader from '../components/ScheduleHeader';
 import StationScheduleRow from './StationScheduleRow';
 import LinkBar from '../components/LinkBar';
 import BranchDropDown from '../components/BranchDropDown';
+import 'whatwg-fetch';
 
 class TrainLineContainer extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
+      total_time: 0,
       currentLineId: "",
       currentLineName: "",
       currentDirectionName: "",
       currentDirectionId: 0,
       favoriteLine: false,
-      stations: {
-        direction: [{
-          direction_id: "0",
-          direction_name: "null",
-          stop: []
-        }]
-      },
+      stations: { direction: [{
+        direction_id: "0",
+        direction_name: "null",
+        stop: []
+      }]},
       trains: [{
         trains: []
       }],
-      branches: []
+      branches: [],
+      currentUser: null
     };
     this.handleChangeBranch = this.handleChangeBranch.bind(this);
     this.fetchFavorite = this.fetchFavorite.bind(this);
@@ -52,7 +53,6 @@ class TrainLineContainer extends Component {
     fetch(`/api/v1/users/toggle_favorite_train_line?line=${this.state.currentLineId}&toggle=${toggleFav}`, { credentials: 'same-origin' })
     .then(response => response.json())
     .then(body => {
-
       this.setState({ favoriteLine: body });
     });
   }
@@ -69,20 +69,18 @@ class TrainLineContainer extends Component {
 
   componentDidMount() {
     let id = location.href.match(/([^\/]*)\/*$/)[1];
-    let midnight = (new Date()).setHours(0,0,0,0) / 1000;
-    this.setState({ currentLineId: id });
-    this.getCurrentLine(id, midnight);
-    this.getStations(id);
+    this.setState({ currentLineId: id }, this.getData);
+  }
+
+  getData() {
+    this.getCurrentLine();
+    this.getStations();
     this.getCurrentUser();
     this.isCurrentLineFavorite();
   }
 
-  componentDidUpdate(prevProps, prevState) {
-
-  }
-
-  getStations(id) {
-    fetch(`https://realtime.mbta.com/developer/api/v2/stopsbyroute?api_key=RfQnjyQA7EecUcMOjtbp0Q&route=${id}`)
+  getStations() {
+    fetch(`https://realtime.mbta.com/developer/api/v2/stopsbyroute?api_key=RfQnjyQA7EecUcMOjtbp0Q&route=${this.state.currentLineId}`)
     .then(response => response.json())
     .then(body => {
       this.setState({
@@ -93,8 +91,9 @@ class TrainLineContainer extends Component {
     });
   }
 
-  getCurrentLine(id, midnight) {
-    fetch(`https://realtime.mbta.com/developer/api/v2/schedulebyroute?api_key=RfQnjyQA7EecUcMOjtbp0Q&route=${id}&max_trips=100&max_time=1440&datetime=${midnight}`)
+  getCurrentLine() {
+    let midnight = (new Date()).setHours(0,0,0,0) / 1000;
+    fetch(`https://realtime.mbta.com/developer/api/v2/schedulebyroute?api_key=RfQnjyQA7EecUcMOjtbp0Q&route=${this.state.currentLineId}&max_trips=100&max_time=1440&datetime=${midnight}`)
     .then(response => response.json())
     .then(body => {
       this.setState({ currentLineName: body.route_name });
@@ -137,25 +136,33 @@ class TrainLineContainer extends Component {
     });
   }
 
+  // componentDidMount() {
+  //   // console.log("trainline did mount")
+  // }
+
   render() {
+    // console.log(" ")
+    // console.log("render")
     let trainNumsTile = this.state.trains[this.state.currentDirectionId].trains.map(train => {
       return(
         <ScheduleHeader
-          key = { train.id }
+          key = { train.fullName }
           num = { train.trainNum }
+          line = { this.state.currentLineId }
         />
       )
     })
-    let stops = this.state.stations.direction[this.state.currentDirectionId].stop //
-    let allStations = stops.map(station => {
+    let stops = this.state.stations.direction[this.state.currentDirectionId].stop
+    let allStations = stops.map((station, index) => {
       return (
         <StationScheduleRow
-          key = { station.stop_id }
-          stop_sequence = { station.stop_sequence }
+          key = { station.stop_order }
+          stop_order = { station.stop_order }
           id = { station.stop_id }
           name = { station.stop_name }
-          trains = { this.state.trains[this.state.currentDirectionId] }
+          trains = { this.state.trains[this.state.currentDirectionId].trains }
           currentDirection = { this.state.currentDirectionName }
+          line = { this.state.currentLineId }
         />
       )
     }, this)
@@ -165,27 +172,44 @@ class TrainLineContainer extends Component {
       {location: "Boston Lines",
       url: '/train_lines'}
     ]
+
+    let favIcon;
+    if (this.state.favoriteLine ) {
+      favIcon = <img className="fav-line-star fav-star" src={assetHelper["gold-star-icon"]}onClick={ this.handleFavoriteLineToggle }></img>
+    } else {
+      favIcon = <img className="fav-line-star fav-star" src={assetHelper["black-star-icon"]} onClick={ this.handleFavoriteLineToggle }></img>
+    }
+
+    let favorite;
+    if (this.state.currentUser) {
+      favorite = <button className="button" onClick={ this.handleFavoriteLineToggle }>Favorite!</button>
+    } else {
+      favorite = "Log in to keep track of your frequently used stops and trains!"
+    }
     return (
       <div>
-        <LinkBar
+        <div className="train-line-header">
+          <LinkBar
           links = { links }
           currentPage = { this.state.currentLineId }
-        />
-        <h3>{ this.state.currentLineName }</h3>
-        <BranchDropDown
+          />
+          <h3>{ this.state.currentLineName } { favIcon }</h3>
+          <BranchDropDown
           branches = { this.state.branches }
           currentDirection = { this.state.currentDirectionName }
           onChange = { this.handleChangeBranch }
           id = {"whatever"}
-        />
-        <span> &nbsp;&nbsp;&nbsp;&nbsp; Use this line a lot? &nbsp;
-        <button className="button" onClick={ this.handleFavoriteLineToggle }>Favorite!</button></span>
-        <table id="line-schedule">
-          <thead><tr><th className="schedule-header-corner">Train Number</th>{ trainNumsTile }</tr></thead>
-          <tbody>
-          {allStations}
-          </tbody>
-        </table>
+          />
+          <span> &nbsp;&nbsp;&nbsp;&nbsp; Use this line a lot? &nbsp;{favorite}</span>
+        </div>
+        <div className="table-div">
+          <table id="line-schedule">
+            <thead><tr><th className="schedule-header-corner schedule-header-row">Train Number</th>{ trainNumsTile }</tr></thead>
+            <tbody>
+            {allStations}
+            </tbody>
+          </table>
+        </div>
       </div>
     )
   }

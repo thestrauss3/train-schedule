@@ -28,6 +28,8 @@ Rails.application.routes.draw do
         collection do
           get 'current_user_id'
           get 'toggle_favorite_train_line'
+          get 'toggle_favorite_train'
+          get 'toggle_favorite_station'
         end
       end
     end

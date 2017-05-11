@@ -10,22 +10,22 @@
 
   <body>
     <header class="row full-width">
-        <div id="header-nav" class="large-2 columns">
+        <div class="large-3 columns header-nav">
           <li><%= link_to 'Home', root_path %></li>
           <li><%= link_to 'About Us', about_path %></li>
           <li><%= link_to 'Boston Trains', train_lines_path %></li>
         </div>
 
-        <div class="title large-8 columns">Train Spotter<br/><div class="sub-title">An organized view of Boston's unorganized transportation system</div></div>
+        <div class="title large-6 columns">Train Spotter<br/><div class="sub-title">An organized view of Boston's unorganized transportation system</div></div>
 
-        <div class="large-2 columns">
+        <div class="large-3 columns user-nav">
           <% if current_user %>
             <h3><%= link_to current_user.name, user_path(current_user.id) %></h3>
             <li><%= link_to "Log out", logout_path, method: :delete %></li>
           <% else %>
-            <h1>Log In</h1>
-            <button onClick="location.href='/auth/facebook'" class="button" >Facebook</button>
-            <button onClick=" location.href='/auth/github' " class="button" >Github</button>
+            <h4>Log In
+            <button onClick="location.href='/auth/facebook'" class="button sign-on-button" >Facebook</button>
+            <button onClick="location.href='/auth/github?callback_url=#{request.fullpath}'" class="button sign-on-button" >Github</button></h4>
 
           <% end %>
         </div>

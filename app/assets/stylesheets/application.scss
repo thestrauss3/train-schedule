@@ -6,7 +6,6 @@
 }
 
 html, body {
-  background-color: #CDD5EA;
   height: 100%;
 }
 
@@ -15,10 +14,15 @@ html, body {
 }
 
 header, .top-bar, header li {
-  background-color: #b2333d;
+  // background-color: #E7C471;
+  background-color: #B5CDEB;
   text-align: center;
   width: 100%;
-  height: 15%;
+  height: 10%;
+}
+
+.header-nav {
+  margin-top: 10px
 }
 
 header li {
@@ -31,31 +35,13 @@ header li {
   font-size: 300%;
   font-family: 'Cinzel';
   font-weight: bold;
+  margin-bottom: 0;
+  text-align: center;
 }
 
 .sub-title {
-  font-size: 50%;
-}
-
-.show-schedule {
-  margin: 10px 10% ;
-}
-
-.schedule-header-row, .schedule-header-corner, .schedule-header-column {
-  text-align: center;
-}
-
-.schedule-header-row {
-
-}
-
-.schedule-header-column {
-  padding: 0;
-}
-
-.schedule-square {
-  padding: 0;
-  text-align: center;
+  font-size: 35%;
+  margin-top: 0;
 }
 
 .full-width {
@@ -64,11 +50,6 @@ header li {
   margin-right: auto;
   max-width: initial;
 }
-
-.title {
-  text-align: center;
-}
-
 
 /* Dropdown Button */
 .dropbtn {
@@ -114,3 +95,25 @@ header li {
 
 /* Show the dropdown menu (use JS to add this class to the .dropdown-content container when the user clicks on the dropdown button) */
 .show {display:block;}
+
+.sign-on-button {
+  vertical-align: middle;
+}
+
+body {
+  // height: 85%;
+  margin: 0 0 0 0;
+  background: image_url(asset-path('train-station-background.jpg')) no-repeat center center fixed;
+  background-color: lightgrey;
+  background-size: cover;
+  background-blend-mode: normal;
+}
+
+#body {
+  background: inherit;
+  background-blend-mode: screen;
+}
+
+thead, tbody {
+  margin-left: 10%;
+}

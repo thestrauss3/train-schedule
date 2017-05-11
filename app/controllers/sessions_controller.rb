@@ -5,7 +5,7 @@ class SessionsController < ApplicationController
       session[:user_id] = @user.id
       redirect_to root_path
     else
-      redirect_to root_path
+      redirect_to root_path, notice: "We were unable to authenticate your information"
     end
   end
 

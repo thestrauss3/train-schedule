@@ -3,7 +3,7 @@ import { Link } from 'react-router';
 
 const HomePage = props => {
   return (
-      <div>
+      <div className="home">
         <h1>Welcome to Train Spotter</h1><br/>
         <ul>
           <Link to={`/train_lines`}>Boston Train Lines</Link>

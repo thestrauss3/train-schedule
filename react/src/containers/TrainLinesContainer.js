@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Link } from 'react-router';
 import TrainLineTile from '../components/TrainLineTile';
 import LinkBar from '../components/LinkBar';
+import 'whatwg-fetch'; 
 
 class TrainLinesContainer extends Component {
   constructor(props) {
@@ -18,11 +19,6 @@ class TrainLinesContainer extends Component {
   }
 
   getLines() {
-    // fetch(`/api/v1/train_lines`)
-    // .then(response => response.json())
-    // .then(body => {
-    //   this.setState({ lines: body });
-    // });
     fetch('https://realtime.mbta.com/developer/api/v2/routes?api_key=RfQnjyQA7EecUcMOjtbp0Q&format=json')
     .then(response => response.json())
     .then(body => body.mode[2].route)
