@@ -5,10 +5,30 @@
   padding:0;
 }
 
-html, body, #app, .react-body {
+
+html, body, #react-app, .react-body, .rails-body {
   height: 100%;
 }
-.react-body {
+
+body {
+  margin: 0 0 0 0;
+  background: image_url(asset-path('train-station-background.jpg')) no-repeat center center fixed;
+  background-color: lightgrey;
+  background-size: cover;
+  background-blend-mode: normal;
+}
+
+.link-bar-link {
+  margin: 0 5px;
+}
+
+#rails-app .rails-body {
+  background-color: green;
+  // color: blue;
+  position: absolute;
+}
+
+.react-body, .rails-body {
   padding-bottom: 10%;
 }
 
@@ -20,37 +40,8 @@ html, body, #app, .react-body {
   height: 85%;
   width: 80%;
   position: fixed;
-}
-
-header, .top-bar, header li {
-  // background-color: #E7C471;
-  background-color: #B5CDEB;
-  text-align: center;
-  width: 100%;
-  height: 10%;
-}
-
-.header-nav {
-  margin-top: 10px
-}
-
-header li {
-  list-style-type: none;
-  padding: 0px;
-  margin: 0;
-}
-
-.title {
-  font-size: 300%;
-  font-family: 'Cinzel';
-  font-weight: bold;
-  margin-bottom: -5px;
-  text-align: center;
-}
-
-.sub-title {
-  font-size: 80%;
-  margin-top: 0;
+  background: inherit;
+  background-blend-mode: screen;
 }
 
 .full-width {
@@ -60,69 +51,30 @@ header li {
   max-width: initial;
 }
 
-/* Dropdown Button */
-.dropbtn {
-    background-color: #4CAF50;
-    color: white;
-    padding: 16px;
-    font-size: 16px;
-    border: none;
-    cursor: pointer;
-}
-
-/* Dropdown button on hover & focus */
-.dropbtn:hover, .dropbtn:focus {
-    background-color: #3e8e41;
-}
-
-/* The container <div> - needed to position the dropdown content */
 .dropdown {
     position: relative;
     display: inline-block;
 }
 
-/* Dropdown Content (Hidden by Default) */
-.dropdown-content {
-    display: none;
-    position: absolute;
-    background-color: #f9f9f9;
-    min-width: 160px;
-    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-    z-index: 1;
-}
-
-/* Links inside the dropdown */
-.dropdown-content a {
-    color: black;
-    padding: 12px 16px;
-    text-decoration: none;
-    display: block;
-}
-
-/* Change color of dropdown links on hover */
-.dropdown-content a:hover {background-color: #f1f1f1}
-
-/* Show the dropdown menu (use JS to add this class to the .dropdown-content container when the user clicks on the dropdown button) */
-.show {display:block;}
-
 .sign-on-button {
   vertical-align: middle;
 }
 
-body {
-  // height: 85%;
-  margin: 0 0 0 0;
-  background: image_url(asset-path('train-station-background.jpg')) no-repeat center center fixed;
-  background-color: lightgrey;
-  background-size: cover;
-  background-blend-mode: normal;
-}
-
-#body {
-  background: inherit;
-  background-blend-mode: screen;
-}
-
-thead, tbody {
-  margin-left: 10%;
+@media screen and (max-width: 960px) {
+  header {
+    height: 25%;
+  }
+  .title {
+    font-size: 150%;
+  }
+  #body {
+    margin: 5%;
+    margin-bottom: 0;
+    height: 70%;
+    padding-bottom: 0;
+    margin-bottom: 0;
+  }
+  .react-body, .rails-body {
+    padding-bottom: 10%;
+  }
 }

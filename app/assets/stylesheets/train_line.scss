@@ -25,7 +25,7 @@
 
 
 .train-line-container {
-  overflow: auto;
+  overflow-x: auto;
   height: 100%;
 }
 
@@ -33,6 +33,7 @@
   white-space: nowrap;
   padding-right: 26px;
   text-align: left;
+  position: relative;
 }
 
 .show-schedule {
@@ -45,4 +46,10 @@
 
 .schedule-header-column, .schedule-square {
   padding: 2px;
+}
+
+thead, tbody {
+  // margin-left: 10%;
+  // display: block;
+  // width: 20px;
 }

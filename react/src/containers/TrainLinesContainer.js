@@ -50,10 +50,10 @@ class TrainLinesContainer extends Component {
           currentPage = { currentPage }
         />
         <h1></h1>
-        <h3>The train lines in Boston are as following</h3>
-        <ul>
+        <h3>Boston Train Lines</h3>
+        <div className="train-lines-container">
         {lines}
-        </ul>
+        </div>
       </div>
     )
   }

@@ -1,7 +1,9 @@
 class SessionsController < ApplicationController
+  skip_before_filter :verify_authenticity_token
   def create
     @user = User.find_or_create_from_omniauth(request.env['omniauth.auth'])
     if @user
+      binding.pry
       session[:user_id] = @user.id
       redirect_to root_path
     else
@@ -9,7 +11,9 @@ class SessionsController < ApplicationController
     end
   end
 
+
   def destroy
+    binding.pry
     session[:user_id] = nil
     redirect_to root_path, :notice => "Signed out!"
   end

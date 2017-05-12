@@ -1,24 +1,26 @@
-<div class="container profile-container">
-  <%= image_tag current_user.avatar_url, class: "avatar" %>
-  <h1><%= current_user.name %></h1>
-</div>
-<div class="container favorites-container">
-  <div class="favorites lines">
-    <h3>Favorite Train Lines</h3>
-    <% current_user.user_favorite_lines.each do |l| %>
-      <li><%= link_to l.line_id, train_line_path(l.line_id) %></li>
-    <% end %>
+<div className="rails-body">
+  <div class="container profile-container">
+    <%= image_tag current_user.avatar_url, class: "avatar" %>
+    <h1><%= current_user.name %></h1>
   </div>
-  <div class="favorites trains">
-    <h3>Favorite Trains</h3>
-    <% current_user.user_favorite_trains.each do |t| %>
-      <li><%= link_to "#{t.train_num} (#{t.line_id})", train_line_path(t.line_id) %></li>
-    <% end %>
-  </div>
-  <div class="favorites stations">
-    <h3>Favorite Stations</h3>
-    <% current_user.user_favorite_stations.each do |s| %>
-      <li><%= link_to "#{s.station_id} (#{s.line_id})", train_line_path(s.line_id) %></li>
-    <% end %>
+  <div class="container favorites-container">
+    <div class="favorites lines">
+      <h3>Favorite Train Lines</h3>
+      <% current_user.user_favorite_lines.each do |l| %>
+        <li><%= link_to l.line_id, train_line_path(l.line_id) %></li>
+      <% end %>
+    </div>
+    <div class="favorites trains">
+      <h3>Favorite Trains</h3>
+      <% current_user.user_favorite_trains.each do |t| %>
+        <li><%= link_to "#{t.train_num} (#{t.line_id})", train_line_path(t.line_id) %></li>
+      <% end %>
+    </div>
+    <div class="favorites stations">
+      <h3>Favorite Stations</h3>
+      <% current_user.user_favorite_stations.each do |s| %>
+        <li><%= link_to "#{s.station_id} (#{s.line_id})", train_line_path(s.line_id) %></li>
+      <% end %>
+    </div>
   </div>
 </div>
