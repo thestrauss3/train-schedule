@@ -5,11 +5,13 @@
   flex-flow: row;
 }
 
-.user-nav-text {
+.user-nav-text, .user-nav-text * {
   order: 1;
   vertical-align: middle;
   align-self: center;
   width: 100%;
+  text-align: right;
+  padding-right: 10px;
 }
 
 .title-nav {

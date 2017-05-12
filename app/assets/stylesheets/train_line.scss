@@ -48,8 +48,12 @@
   padding: 2px;
 }
 
-thead, tbody {
-  // margin-left: 10%;
-  // display: block;
-  // width: 20px;
+@media (max-width: 800px) {
+  tr {
+    padding: 10px;
+  }
+  .schedule-header-row {
+    padding-top: 0;
+    padding-bottom: 0;
+  }
 }
