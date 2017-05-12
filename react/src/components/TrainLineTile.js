@@ -3,8 +3,8 @@ import { Link } from 'react-router';
 
 const TrainLineTile = props => {
   return (
-      <div>
-        <Link to={`/train_lines/${props.id}`}>{props.name}</Link>
+      <div className="train-line-button">
+        <Link to={`/train_lines/${props.id}`}><button className="button" >{props.name}</button></Link>
       </div>
   )
 }
