@@ -37,11 +37,11 @@ class ScheduleHeader extends Component {
   render() {
     let favIcon;
     let favClass;
-    if (this.state.favorite) {
+    if (this.state.favorite && this.props.currentUser) {
       favIcon = <img className="fav-star" src={assetHelper["gold-star-icon"]}></img>
       favClass = " favorite"
 
-    } else {
+    } else if (this.props.currentUser) {
       favIcon = <img className="fav-star" src={assetHelper["black-star-icon"]}></img>
       favClass = ""
     }

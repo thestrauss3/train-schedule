@@ -86,10 +86,10 @@ class StationScheduleRow extends Component {
     })
     let favIcon;
     let favClass;
-    if (this.state.favorite) {
+    if (this.state.favorite && this.props.currentUser) {
       favIcon = <img className="fav-star fav-row-star" src={assetHelper["gold-star-icon"]}></img>
       favClass = " favorite"
-    } else {
+    } else if (this.props.currentUser) {
       favIcon = <img className="fav-star fav-row-star" src={assetHelper["black-star-icon"]}></img>
       favClass = ""
     }
