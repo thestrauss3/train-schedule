@@ -20,8 +20,8 @@
 
         <div class="medium-4 columns user-nav container">
           <% if current_user %>
-            <h3 class="user-nav-text"><%= link_to current_user.name, user_path(current_user.id) %></h3>
-            <a class="sign-on-button" href='/logout' method='delete'><button class="button sign-on-button">Logout</button></a>
+            <h4 class="user-nav-text"><%= link_to current_user.name, user_path(current_user.id) %></h4>
+            <a class="sign-on-button" href='/logout' data-method='delete'><button class="button sign-on-button">Logout</button></a>
           <% else %>
             <h4 class="user-nav-text small-12">Log In</h4>
               <button onClick="location.href='/auth/facebook'" class="button sign-on-button" >Facebook</button>

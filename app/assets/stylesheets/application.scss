@@ -18,24 +18,19 @@ body {
   background-blend-mode: normal;
 }
 
-.link-bar-link {
-  margin: 0 5px;
-}
-
 #rails-app .rails-body {
   background-color: green;
-  // color: blue;
   position: absolute;
 }
 
 .react-body, .rails-body {
-  padding-bottom: 10%;
+  padding-bottom: 1%;
 }
 
 #body {
   margin:10%;
   margin-bottom: 0;
-  border-radius: 6% 6% 0 0;
+  border-radius: 10% 10% 0 0;
   padding: 2% 10% 5% 10%;
   height: 85%;
   width: 80%;
@@ -69,12 +64,18 @@ body {
   }
   #body {
     margin: 5%;
-    margin-bottom: 0;
-    height: 70%;
+    height: 75%;
     padding-bottom: 0;
     margin-bottom: 0;
+    width: 90%;
+    overflow: hidden;
   }
   .react-body, .rails-body {
-    padding-bottom: 10%;
+    padding-bottom: 0%;
+    overflow-y: scroll;
+  }
+  .react-app, .rails-app {
+    margin: 0 5%;
+    // overflow-y: scroll;
   }
 }

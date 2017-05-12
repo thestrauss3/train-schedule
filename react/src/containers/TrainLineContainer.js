@@ -136,19 +136,15 @@ class TrainLineContainer extends Component {
     });
   }
 
-  // componentDidMount() {
-  //   // console.log("trainline did mount")
-  // }
-
   render() {
-    // console.log(" ")
-    // console.log("render")
+
     let trainNumsTile = this.state.trains[this.state.currentDirectionId].trains.map(train => {
       return(
         <ScheduleHeader
           key = { train.fullName }
           num = { train.trainNum }
           line = { this.state.currentLineId }
+          currentUser = { this.state.currentUser }
         />
       )
     })
@@ -163,6 +159,7 @@ class TrainLineContainer extends Component {
           trains = { this.state.trains[this.state.currentDirectionId].trains }
           currentDirection = { this.state.currentDirectionName }
           line = { this.state.currentLineId }
+          currentUser = { this.state.currentUser }
         />
       )
     }, this)
@@ -174,9 +171,9 @@ class TrainLineContainer extends Component {
     ]
 
     let favIcon;
-    if (this.state.favoriteLine ) {
+    if (this.state.favoriteLine && this.state.currentUser) {
       favIcon = <img className="fav-line-star fav-star" src={assetHelper["gold-star-icon"]}onClick={ this.handleFavoriteLineToggle }></img>
-    } else {
+    } else if (this.state.currentUser) {
       favIcon = <img className="fav-line-star fav-star" src={assetHelper["black-star-icon"]} onClick={ this.handleFavoriteLineToggle }></img>
     }
     let favoritePromptLog;
