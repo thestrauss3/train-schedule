@@ -1,0 +1,55 @@
+// Place all the styles related to the TrainLines controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+#line-schedule {
+  // overflow: scroll;
+  // display: inline-block;
+}
+
+.fav-star {
+  height: 25px;
+  width: 25px;
+}
+
+.fav-row-star {
+  float: right;
+  // position: sticky;
+  margin-right: -25px;
+}
+
+.fav-line-star {
+  vertical-align: baseline;
+  display: inline-block;
+}
+
+
+.train-line-container {
+  overflow-x: auto;
+  height: 100%;
+}
+
+.schedule-header-row {
+  white-space: nowrap;
+  padding-right: 26px;
+  text-align: left;
+  position: relative;
+}
+
+.show-schedule {
+  margin: 10px 10% ;
+}
+
+.schedule-header-corner, .schedule-header-column, .schedule-square {
+  text-align: center;
+}
+
+.schedule-header-column, .schedule-square {
+  padding: 2px;
+}
+
+thead, tbody {
+  // margin-left: 10%;
+  // display: block;
+  // width: 20px;
+}

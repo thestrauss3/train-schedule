@@ -1,4 +1,6 @@
 class SessionsController < ApplicationController
+  skip_before_filter :verify_authenticity_token
+  
   def create
     @user = User.find_or_create_from_omniauth(request.env['omniauth.auth'])
     if @user

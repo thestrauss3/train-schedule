@@ -2,37 +2,38 @@
 <html>
   <head>
     <title>Train Spotter</title>
-    <%= csrf_meta_tags %>
+    <meta name="viewport" content="width=device-width,initial-scale=1" charset="utf-8">
     <link href="https://fonts.googleapis.com/css?family=Almendra+SC|Artifika|Cinzel|Kotta+One|Bungee" rel="stylesheet">
     <%= stylesheet_link_tag    'application', media: 'all' %>
     <%= javascript_include_tag 'application' %>
   </head>
 
   <body>
-    <header class="row full-width">
-        <div class="large-3 columns header-nav">
+    <header class="row full-width text-align-center">
+        <div class="medium-2 columns header-nav">
           <li><%= link_to 'Home', root_path %></li>
           <li><%= link_to 'About Us', about_path %></li>
           <li><%= link_to 'Boston Trains', train_lines_path %></li>
         </div>
 
-        <div class="title large-6 columns">Train Spotter<br/><div class="sub-title">An organized view of Boston's unorganized transportation system</div></div>
+        <div class="medium-6 columns title-nav"><h1 class="title">Train Spotter</h1><h4 class="sub-title">An organized view of Boston's unorganized transportation system</h4></div>
 
-        <div class="large-3 columns user-nav">
+        <div class="medium-4 columns user-nav container">
           <% if current_user %>
-            <h3><%= link_to current_user.name, user_path(current_user.id) %></h3>
-            <li><%= link_to "Log out", logout_path, method: :delete %></li>
+            <h3 class="user-nav-text"><%= link_to current_user.name, user_path(current_user.id) %></h3>
+            <a class="sign-on-button" href='/logout' method='delete'><button class="button sign-on-button">Logout</button></a>
           <% else %>
-            <h4>Log In
-            <button onClick="location.href='/auth/facebook'" class="button sign-on-button" >Facebook</button>
-            <button onClick="location.href='/auth/github?callback_url=#{request.fullpath}'" class="button sign-on-button" >Github</button></h4>
-
+            <h4 class="user-nav-text small-12">Log In</h4>
+              <button onClick="location.href='/auth/facebook'" class="button sign-on-button" >Facebook</button>
+              <button onClick="location.href='/auth/github?callback_url=#{request.fullpath}'" class="button sign-on-button" >Github</button>
           <% end %>
         </div>
     </header>
     <div id="body">
+      <div id="rails-app">
       <%= yield %>
-      <div id='app'>
+      </div>
+      <div id='react-app'>
       </div>
     </div>
 

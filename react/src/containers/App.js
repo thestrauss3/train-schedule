@@ -11,7 +11,7 @@ class App extends Component {
 
   render() {
     return (
-      <div>
+      <div className="react-body">
         <Router history={browserHistory}>
           <Route path='/' component={HomePage} />
           <Route path='/train_lines' component={TrainLinesContainer} />

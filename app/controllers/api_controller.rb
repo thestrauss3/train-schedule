@@ -13,5 +13,5 @@ class ApiController < ApplicationController
       nil
     end
   end
-  !true
+  # !true
 end
