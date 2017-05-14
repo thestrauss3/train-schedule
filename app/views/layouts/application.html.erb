@@ -14,18 +14,43 @@
     <header class="row full-width text-align-center">
 
         <div class="small-4 medium-2 columns header-nav">
-          <div class="dropdown nav-menu">
-            <span><%= image_tag 'logo.png', class: "logo" %></span>
-            <div class="dropdown-content">
-              <li><%= link_to 'Home', root_path %></li>
-              <li><%= link_to 'About Us', about_path %></li>
-            </div>
-          </div>
+
+            <span><a href="/"><%= image_tag 'logo.png', class: "logo", href: "/" %></a></span>
+
+
         </div>
 
         <div class="small-0 medium-6 columns title-nav"><h1 class="title">Train Spotter</h1><h4 class="sub-title">An organized view of Boston's unorganized transportation system</h4></div>
 
-        <div class="small-8 medium-4 columns user-nav">
+        <div class="small-4 medium-2 columns user-nav">
+          <div class="dropdown nav-menu">
+            <span>
+              <div class="menu-container" onclick="myFunction(this)">
+                <div class="bar1"></div>
+                <div class="bar2"></div>
+                <div class="bar3"></div>
+              </div>
+            </span>
+            <div class="dropdown-content">
+              <%= link_to 'Home', root_path, class: "button sign-on-button" %>
+              <%= link_to 'About Us', about_path, class: "button sign-on-button"%>
+              <div className="divider"> </div>
+              <% if current_user %>
+                <%= link_to current_user.name, user_path(current_user.id), class: "button sign-on-button" %>
+                <%= link_to 'Logout', logout_path, method: 'delete', class: "button sign-on-button" %>
+              <% else %>
+              <div className="container">
+                <h4 class="user-nav-text button sign-on-button">Log In</h4>
+                <div className="user-nav-buttons">
+                  <%= link_to 'Facebook', "/auth/facebook", class: "button sign-on-button" %>
+                  <%= link_to 'Github', "/auth/github", class: "button sign-on-button" %>
+                </div>
+              </div>
+              <% end %>
+            </div>
+          </div>
+        </div>
+        <!-- <div class="small-8 medium-4 columns user-nav">
           <% if current_user %>
             <h4 class="user-nav-text"><%= link_to current_user.name, user_path(current_user.id) %></h4>
             <a class="sign-on-button" href='/logout' data-method='delete'><button class="button sign-on-button">Logout</button></a>
@@ -38,7 +63,7 @@
             </div>
           </div>
           <% end %>
-        </div>
+        </div> -->
     </header>
     <div id="body">
       <div id="rails-app">
