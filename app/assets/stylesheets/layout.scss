@@ -1,28 +1,19 @@
 .nav-menu {
   height: 100%;
 }
+
 .logo {
   height: 100%;
 }
 
-.user-nav h4 {
-  order: 1
-}
-.user-nav button {
-  order: 2
-}
 .dropdown {
-    position: relative;
-    display: inline-block;
-}
-
-.sign-on-button {
-  // vertical-align: middle;
+  position: relative;
+  display: inline-block;
 }
 
 .dropdown {
-    position: relative;
-    display: inline-block;
+  position: relative;
+  display: inline-block;
 }
 
 .dropdown-content {
@@ -44,11 +35,9 @@
 .title-nav {
   margin: .5em calc(100% * -1/12) 0 calc(100% * 1/12);
   padding: 0;
-
 }
 
 .sign-on-button {
-  // order: 2;
   height: 3em;
   align-self: center;
   margin: 0;
@@ -68,12 +57,6 @@ header, .top-bar {
   height: 60%
 }
 
-header li {
-  list-style-type: none;
-  padding: 0px;
-  margin: 0;
-}
-
 .title {
   font-size: 5vh;
   font-family: 'PT serif', serif;
@@ -85,23 +68,6 @@ header li {
 .sub-title {
   font-size: 1.8vh;
   margin-top: 0;
-}
-
-@media screen and (max-width: 960px) {
-  .header-nav {
-    margin: 1% 0;
-    height: 90%;
-  }
-  .title-nav {
-    visibility: hidden;
-    position: absolute;
-  }
-  .user-nav {
-    display: inline-flex;
-  }
-  .user-nav {
-    height: 100%;
-  }
 }
 
 .menu-container {
@@ -139,4 +105,21 @@ header li {
 
 .user-nav-text {
   background-color: #1B689C;
+}
+
+@media screen and (max-width: 960px) {
+  .header-nav {
+    margin: 1% 0;
+    height: 90%;
+  }
+  .title-nav {
+    visibility: hidden;
+    position: absolute;
+  }
+  .user-nav {
+    display: inline-flex;
+  }
+  .user-nav {
+    height: 100%;
+  }
 }
