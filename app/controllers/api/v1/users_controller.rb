@@ -61,7 +61,7 @@ class Api::V1::UsersController < ApiController
       favorite_station = false
       if toggle
         UserFavoriteStation.create(
-        line_id: params[:line],
+          line_id: params[:line],
           user: current_user,
           station_id: params[:station]
         )
