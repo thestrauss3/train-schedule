@@ -24,12 +24,20 @@ class Api::V1::UsersController < ApiController
   end
 
   def toggle_favorite_train
-    train = UserFavoriteTrain.where(user: current_user, train_num: params[:train], line_id: params[:line])
+    train = UserFavoriteTrain.where(
+      user: current_user,
+      train_num: params[:train],
+      line_id: params[:line]
+    )
     toggle = str_to_boolean(params[:toggle])
     if train.empty?
       favorite_train = false
       if toggle
-        UserFavoriteTrain.create(user: current_user, train_num: params[:train], line_id: params[:line])
+        UserFavoriteTrain.create(
+          line_id: params[:line],
+          user: current_user,
+          train_num: params[:train]
+        )
         favorite_train = true
       end
     else
@@ -43,12 +51,20 @@ class Api::V1::UsersController < ApiController
   end
 
   def toggle_favorite_station
-    station = UserFavoriteStation.where(user: current_user, station_id: params[:station], line_id: params[:line])
+    station = UserFavoriteStation.where(
+      user: current_user,
+      station_id: params[:station],
+      line_id: params[:line]
+    )
     toggle = str_to_boolean(params[:toggle])
     if station.empty?
       favorite_station = false
       if toggle
-        UserFavoriteStation.create(user: current_user, station_id: params[:station], line_id: params[:line])
+        UserFavoriteStation.create(
+        line_id: params[:line],
+          user: current_user,
+          station_id: params[:station]
+        )
         favorite_station = true
       end
     else
