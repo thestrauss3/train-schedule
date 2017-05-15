@@ -78,6 +78,13 @@ Acceptance Criteria
 - I want to see all alerts related to any of my favorited items
 - I want to see an abbreviated schedule of all my favorite lines that only shows my favorite stations times
 
+```
+As an authenticated user
+I want to receive text or email notifications
+so I know when my favorited items have important alerts
+```
+
+
 ```no-highlight
 As an authenticated user
 I want to receive text or email notifications
@@ -88,16 +95,11 @@ Acceptance Criteria
 - I should be able to set my alert threshold to none, important, or all
 - I should be able to choose these options from the settings page which I can get to by clicking a link on the nav bar that only appears while logged in
 
-*** IGNORE BELOW ***
-*testing markdown*
-*everything
-here
-is testing*
-# one
-## two
-### three
-* bullet one
-*bullet dual*
-** bullet two
-**bullet dual two**
-***bullet three
+
+# h1
+## h2
+### h3
+* bullet
+- also bullet?
+*italic*
+**bold**

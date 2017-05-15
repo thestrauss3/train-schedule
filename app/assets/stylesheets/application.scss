@@ -5,6 +5,10 @@
   padding:0;
 }
 
+html {
+  font-family: "PT sans", sans-serif;
+  overflow: hidden;
+}
 
 html, body, #react-app, .react-body, .rails-body {
   height: 100%;
@@ -19,7 +23,6 @@ body {
 }
 
 #rails-app .rails-body {
-  background-color: green;
   position: absolute;
 }
 
@@ -28,7 +31,7 @@ body {
 }
 
 #body {
-  margin:10%;
+  margin: 5% 10% 0 10%;
   margin-bottom: 0;
   border-radius: 10% 10% 0 0;
   padding: 2% 10% 5% 10%;
@@ -46,25 +49,13 @@ body {
   max-width: initial;
 }
 
-.dropdown {
-    position: relative;
-    display: inline-block;
-}
-
-.sign-on-button {
-  vertical-align: middle;
-}
-
 @media screen and (max-width: 960px) {
-  header {
-    height: 25%;
-  }
-  .title {
-    font-size: 150%;
+  html {
+    font-size: 50%;
   }
   #body {
     margin: 5%;
-    height: 75%;
+    // height: 75%;
     padding-bottom: 0;
     margin-bottom: 0;
     width: 90%;

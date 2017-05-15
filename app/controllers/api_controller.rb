@@ -9,9 +9,6 @@ class ApiController < ApplicationController
       true
     elsif str.to_s === "false"
       false
-    else
-      nil
     end
   end
-  # !true
 end

@@ -23,3 +23,5 @@
 /coverage
 
 .env
+user-stores.md
+yarn.lock

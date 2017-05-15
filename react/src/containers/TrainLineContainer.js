@@ -59,7 +59,7 @@ class TrainLineContainer extends Component {
 
   handleChangeBranch(event) {
     let directionId = this.state.stations.direction.filter((d) => {
-      return d.direction_name == event.target.value;
+      return d.direction_name === event.target.value;
     });
     this.setState({
       currentDirectionName: event.target.value,
@@ -93,6 +93,7 @@ class TrainLineContainer extends Component {
 
   getCurrentLine() {
     let midnight = (new Date()).setHours(0,0,0,0) / 1000;
+    midnight = 1494910800;
     fetch(`https://realtime.mbta.com/developer/api/v2/schedulebyroute?api_key=RfQnjyQA7EecUcMOjtbp0Q&route=${this.state.currentLineId}&max_trips=100&max_time=1440&datetime=${midnight}`)
     .then(response => response.json())
     .then(body => {
@@ -170,12 +171,14 @@ class TrainLineContainer extends Component {
       url: '/train_lines'}
     ]
 
-    let favIcon;
+    let icon;
     if (this.state.favoriteLine && this.state.currentUser) {
-      favIcon = <img className="fav-line-star fav-star" src={assetHelper["gold-star-icon"]}onClick={ this.handleFavoriteLineToggle }></img>
+      icon = assetHelper["gold-star-icon"]
     } else if (this.state.currentUser) {
-      favIcon = <img className="fav-line-star fav-star" src={assetHelper["black-star-icon"]} onClick={ this.handleFavoriteLineToggle }></img>
+      icon = assetHelper["black-star-icon"]
     }
+    let favIcon = <img className="fav-line-star fav-star" src={icon}onClick={ this.handleFavoriteLineToggle }></img>
+
     let favoritePromptLog;
     if (!this.state.currentUser) {
       favoritePromptLog = <span>  Log in to keep track of frequently used trains!</span>
