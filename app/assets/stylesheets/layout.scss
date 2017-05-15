@@ -3,7 +3,6 @@
 }
 .logo {
   height: 100%;
-  // width: 40px;
 }
 
 .user-nav h4 {
@@ -60,7 +59,7 @@ header, .top-bar {
   background-color: #B5CDEB;
   text-align: center;
   width: 100%;
-  height: 10%;
+  height: 12vh;
 }
 
 .header-nav {
@@ -75,7 +74,7 @@ header li {
 }
 
 .title {
-  font-size: 300%;
+  font-size: 5vh;
   font-family: 'PT serif', serif;
   font-weight: bold;
   margin-bottom: -5px;
@@ -83,14 +82,11 @@ header li {
 }
 
 .sub-title {
-  font-size: 80%;
+  font-size: 2vh;
   margin-top: 0;
 }
 
 @media screen and (max-width: 960px) {
-  header {
-    height: 12%;
-  }
   .header-nav {
     margin: 1% 0;
     height: 90%;
@@ -106,7 +102,6 @@ header li {
     height: 100%;
   }
 }
-
 
 .menu-container {
     display: inline-block;

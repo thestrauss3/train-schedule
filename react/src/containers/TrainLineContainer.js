@@ -59,7 +59,7 @@ class TrainLineContainer extends Component {
 
   handleChangeBranch(event) {
     let directionId = this.state.stations.direction.filter((d) => {
-      return d.direction_name == event.target.value;
+      return d.direction_name === event.target.value;
     });
     this.setState({
       currentDirectionName: event.target.value,
@@ -171,12 +171,14 @@ class TrainLineContainer extends Component {
       url: '/train_lines'}
     ]
 
-    let favIcon;
+    let icon;
     if (this.state.favoriteLine && this.state.currentUser) {
-      favIcon = <img className="fav-line-star fav-star" src={assetHelper["gold-star-icon"]}onClick={ this.handleFavoriteLineToggle }></img>
+      icon = assetHelper["gold-star-icon"]
     } else if (this.state.currentUser) {
-      favIcon = <img className="fav-line-star fav-star" src={assetHelper["black-star-icon"]} onClick={ this.handleFavoriteLineToggle }></img>
+      icon = assetHelper["black-star-icon"]
     }
+    let favIcon = <img className="fav-line-star fav-star" src={icon}onClick={ this.handleFavoriteLineToggle }></img>
+
     let favoritePromptLog;
     if (!this.state.currentUser) {
       favoritePromptLog = <span>  Log in to keep track of frequently used trains!</span>
