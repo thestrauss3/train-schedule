@@ -1,6 +1,5 @@
 class Station < ApplicationRecord
-  validates :name, :route_id, presence: true
-  validates :has_wifi, inclusion: { in: [true, false, nil] }
+  validates :stop_name, :stop_order, :stop_id, :route_id, presence: true
 
   belongs_to :route
   has_many :train_stops

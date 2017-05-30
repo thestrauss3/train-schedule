@@ -1,4 +1,6 @@
 class Route < ApplicationRecord
+  self.primary_key = "route_id"
+
   validates :name, presence: true
   validates :mode, presence: true
 
