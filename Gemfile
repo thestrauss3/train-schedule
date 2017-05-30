@@ -12,7 +12,7 @@ gem 'dotenv-rails'
 gem 'omniauth-facebook'
 gem 'omniauth-github'
 gem 'httparty'
-gem 'whenever'
+gem 'rufus-scheduler'
 group :development, :test do
   gem 'capybara'
   gem 'factory_girl_rails'
