@@ -50,6 +50,3 @@ Route.all.each do |r|
     end
   end
 end
-
-
-binding.pry
