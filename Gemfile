@@ -12,7 +12,7 @@ gem 'dotenv-rails'
 gem 'omniauth-facebook'
 gem 'omniauth-github'
 gem 'httparty'
-# gem 'HTTParty'
+gem 'whenever'
 group :development, :test do
   gem 'capybara'
   gem 'factory_girl_rails'
