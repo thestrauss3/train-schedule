@@ -1,5 +1,6 @@
 class TrainLine < ApplicationRecord
   validates :name, presence: true
+  validates :mode, presence: true
 
   has_many :stations
   has_many :trains
