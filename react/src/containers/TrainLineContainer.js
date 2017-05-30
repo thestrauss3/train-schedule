@@ -93,7 +93,6 @@ class TrainLineContainer extends Component {
 
   getCurrentLine() {
     let midnight = (new Date()).setHours(0,0,0,0) / 1000;
-    midnight = 1494910800;
     fetch(`https://realtime.mbta.com/developer/api/v2/schedulebyroute?api_key=RfQnjyQA7EecUcMOjtbp0Q&route=${this.state.currentLineId}&max_trips=100&max_time=1440&datetime=${midnight}`)
     .then(response => response.json())
     .then(body => {
@@ -138,7 +137,6 @@ class TrainLineContainer extends Component {
   }
 
   render() {
-
     let trainNumsTile = this.state.trains[this.state.currentDirectionId].trains.map(train => {
       return(
         <ScheduleHeader
