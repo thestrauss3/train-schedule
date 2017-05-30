@@ -6,7 +6,7 @@ const HomePage = props => {
       <div className="home">
         <h1>Welcome to Train Spotter</h1><br/>
         <ul>
-          <Link to={`/train_lines`}>Boston Train Lines</Link>
+          <Link to={`/routes`}>Boston Transportation</Link>
         </ul>
         <br/><br/>
         <p>Train Spotter is currently still being built up to it's full capabilities.

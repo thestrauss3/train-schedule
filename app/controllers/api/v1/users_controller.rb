@@ -4,37 +4,37 @@ class Api::V1::UsersController < ApiController
     render json: @user
   end
 
-  def toggle_favorite_train_line
-    line = UserFavoriteLine.where(user: current_user, line_id: params[:line])
+  def toggle_favorite_route
+    route = UserFavoriteRoute.where(user: current_user, route_id: params[:route])
     toggle = str_to_boolean(params[:toggle])
-    if line.empty?
-      favorite_line = false
+    if route.empty?
+      favorite_route = false
       if toggle
-        UserFavoriteLine.create(user: current_user, line_id: params[:line])
-        favorite_line = true
+        UserFavoriteRoute.create(user: current_user, route_id: params[:route])
+        favorite_route = true
       end
     else
-      favorite_line = true
+      favorite_route = true
       if toggle
-        line[0].delete
-        favorite_line = false
+        route[0].delete
+        favorite_route = false
       end
     end
-    render json: favorite_line
+    render json: favorite_route
   end
 
   def toggle_favorite_train
     train = UserFavoriteTrain.where(
       user: current_user,
       train_num: params[:train],
-      line_id: params[:line]
+      route_id: params[:route]
     )
     toggle = str_to_boolean(params[:toggle])
     if train.empty?
       favorite_train = false
       if toggle
         UserFavoriteTrain.create(
-          line_id: params[:line],
+          route_id: params[:route],
           user: current_user,
           train_num: params[:train]
         )
@@ -54,14 +54,14 @@ class Api::V1::UsersController < ApiController
     station = UserFavoriteStation.where(
       user: current_user,
       station_id: params[:station],
-      line_id: params[:line]
+      route_id: params[:route]
     )
     toggle = str_to_boolean(params[:toggle])
     if station.empty?
       favorite_station = false
       if toggle
         UserFavoriteStation.create(
-          line_id: params[:line],
+          route_id: params[:route],
           user: current_user,
           station_id: params[:station]
         )

@@ -27,7 +27,7 @@ class ScheduleHeader extends Component {
   }
 
   fetchFavorite(toggleFav) {
-    fetch(`/api/v1/users/toggle_favorite_train?train=${this.props.num}&toggle=${toggleFav}&line=${this.props.line}`, { credentials: 'same-origin' })
+    fetch(`/api/v1/users/toggle_favorite_train?train=${this.props.num}&toggle=${toggleFav}&route=${this.props.route}`, { credentials: 'same-origin' })
     .then(response => response.json())
     .then(body => {
       this.setState({ favorite: body });

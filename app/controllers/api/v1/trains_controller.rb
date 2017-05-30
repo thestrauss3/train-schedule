@@ -1,7 +1,7 @@
 class Api::V1::TrainsController < ApiController
   def index
-    train_line = TrainLine.find(params[:train_line_id])
-    @trains = Train.where(train_line: train_line)
+    route = Route.find(params[:route_id])
+    @trains = Train.where(route: route)
     render json: @trains
   end
 end

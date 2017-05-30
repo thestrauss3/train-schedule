@@ -1,48 +1,48 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router';
-import TrainLineTile from '../components/TrainLineTile';
+import RouteTile from '../components/RouteTile';
 import LinkBar from '../components/LinkBar';
 import 'whatwg-fetch';
 
-class TrainLinesContainer extends Component {
+class RoutesContainer extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      lines: []
+      routes: []
     };
 
   }
 
   componentDidMount() {
-    this.getLines();
+    this.getRoutes();
   }
 
-  getLines() {
+  getRoutes() {
     fetch('https://realtime.mbta.com/developer/api/v2/routes?api_key=RfQnjyQA7EecUcMOjtbp0Q&format=json')
     .then(response => response.json())
     .then(body => {
       debugger;
       body.mode.forEach((mode, modeIndex) => {
         mode.route.forEach((route, routeIndex) => {
-          
+
         })
       })
     })
     .then(body => body.mode[2].route)
     .then(commuter_rail => {
-      this.setState({ lines: commuter_rail });
+      this.setState({ routes: commuter_rail });
     });
   }
 
   render() {
 
-    let lines = this.state.lines.map(line => {
+    let routes = this.state.routes.map(route => {
       return(
-        <TrainLineTile
-        key = { line.route_id }
-        id = { line.route_id }
-        name = { line.route_name }
+        <RouteTile
+        key = { route.route_id }
+        id = { route.route_id }
+        name = { route.route_name }
         />
       )
     })
@@ -50,7 +50,7 @@ class TrainLinesContainer extends Component {
       {location: "Home",
       url: `/`}
     ]
-    let currentPage = "Boston Lines"
+    let currentPage = "Boston Routes"
     return (
       <div>
         <LinkBar
@@ -58,13 +58,13 @@ class TrainLinesContainer extends Component {
           currentPage = { currentPage }
         />
         <h1></h1>
-        <h3>Boston Train Lines</h3>
-        <div className="train-lines-container">
-        {lines}
+        <h3>Boston Train Routes</h3>
+        <div className="routes-container">
+        {routes}
         </div>
       </div>
     )
   }
 }
 
-export default TrainLinesContainer;
+export default RoutesContainer;

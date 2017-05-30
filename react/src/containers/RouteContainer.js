@@ -6,18 +6,31 @@ import LinkBar from '../components/LinkBar';
 import BranchDropDown from '../components/BranchDropDown';
 import 'whatwg-fetch';
 
-class TrainLineContainer extends Component {
+class RouteContainer extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      data: {
-
-      }
+      total_time: 0,
+      currentRouteId: "",
+      currentRouteName: "",
+      currentDirectionName: "",
+      currentDirectionId: 0,
+      favoriteRoute: false,
+      stations: { direction: [{
+        direction_id: "0",
+        direction_name: "null",
+        stop: []
+      }]},
+      trains: [{
+        trains: []
+      }],
+      branches: [],
+      currentUser: null
     };
     this.handleChangeBranch = this.handleChangeBranch.bind(this);
     this.fetchFavorite = this.fetchFavorite.bind(this);
-    this.handleFavoriteLineToggle = this.handleFavoriteLineToggle.bind(this);
+    this.handleFavoriteRouteToggle = this.handleFavoriteRouteToggle.bind(this);
   }
 
   getCurrentUser() {
@@ -28,19 +41,19 @@ class TrainLineContainer extends Component {
     });
   }
 
-  handleFavoriteLineToggle() {
+  handleFavoriteRouteToggle() {
     this.fetchFavorite("true");
   }
 
-  isCurrentLineFavorite() {
+  isCurrentRouteFavorite() {
     this.fetchFavorite("false");
   }
 
   fetchFavorite(toggleFav) {
-    fetch(`/api/v1/users/toggle_favorite_train_line?line=${this.state.currentLineId}&toggle=${toggleFav}`, { credentials: 'same-origin' })
+    fetch(`/api/v1/users/toggle_favorite_route?route=${this.state.currentRouteId}&toggle=${toggleFav}`, { credentials: 'same-origin' })
     .then(response => response.json())
     .then(body => {
-      this.setState({ favoriteLine: body });
+      this.setState({ favoriteRoute: body });
     });
   }
 
@@ -55,32 +68,19 @@ class TrainLineContainer extends Component {
   }
 
   componentDidMount() {
-    // let id = location.href.match(/([^\/]*)\/*$/)[1];
-    // this.setState({ currentLineId: id }, this.getData);
-    this.fetchData();
-  }
-
-  fetchData() {
-    fetch(`https://realtime.mbta.com/developer/api/v2/stopsbyroute?api_key=RfQnjyQA7EecUcMOjtbp0Q&route=${this.state.currentLineId}`)
-    .then(response => response.json())
-    .then(body => {
-      this.setState({
-        currentDirectionId: body.direction[0].direction_id,
-        currentDirectionName: body.direction[0].direction_name,
-        stations: body
-      });
-    });
+    let id = location.href.match(/([^\/]*)\/*$/)[1];
+    this.setState({ currentRouteId: id }, this.getData);
   }
 
   getData() {
-    this.getCurrentLine();
+    this.getCurrentRoute();
     this.getStations();
     this.getCurrentUser();
-    this.isCurrentLineFavorite();
+    this.isCurrentRouteFavorite();
   }
 
   getStations() {
-    fetch(`https://realtime.mbta.com/developer/api/v2/stopsbyroute?api_key=RfQnjyQA7EecUcMOjtbp0Q&route=${this.state.currentLineId}`)
+    fetch(`https://realtime.mbta.com/developer/api/v2/stopsbyroute?api_key=RfQnjyQA7EecUcMOjtbp0Q&route=${this.state.currentRouteId}`)
     .then(response => response.json())
     .then(body => {
       this.setState({
@@ -91,12 +91,12 @@ class TrainLineContainer extends Component {
     });
   }
 
-  getCurrentLine() {
+  getCurrentRoute() {
     let midnight = (new Date()).setHours(0,0,0,0) / 1000;
-    fetch(`https://realtime.mbta.com/developer/api/v2/schedulebyroute?api_key=RfQnjyQA7EecUcMOjtbp0Q&route=${this.state.currentLineId}&max_trips=100&max_time=1440&datetime=${midnight}`)
+    fetch(`https://realtime.mbta.com/developer/api/v2/schedulebyroute?api_key=RfQnjyQA7EecUcMOjtbp0Q&route=${this.state.currentRouteId}&max_trips=100&max_time=1440&datetime=${midnight}`)
     .then(response => response.json())
     .then(body => {
-      this.setState({ currentLineName: body.route_name });
+      this.setState({ currentRouteName: body.route_name });
       let branches = [];
       body.direction.forEach((d) => {
         branches.push(d.direction_name);
@@ -142,7 +142,7 @@ class TrainLineContainer extends Component {
         <ScheduleHeader
           key = { train.fullName }
           num = { train.trainNum }
-          line = { this.state.currentLineId }
+          route = { this.state.currentRouteId }
           currentUser = { this.state.currentUser }
         />
       )
@@ -157,7 +157,7 @@ class TrainLineContainer extends Component {
           name = { station.stop_name }
           trains = { this.state.trains[this.state.currentDirectionId].trains }
           currentDirection = { this.state.currentDirectionName }
-          line = { this.state.currentLineId }
+          route = { this.state.currentRouteId }
           currentUser = { this.state.currentUser }
         />
       )
@@ -165,30 +165,30 @@ class TrainLineContainer extends Component {
     let links = [
       {location: "Home",
       url: `/`},
-      {location: "Boston Lines",
-      url: '/train_lines'}
+      {location: "Boston Routes",
+      url: '/routes'}
     ]
 
     let icon;
-    if (this.state.favoriteLine && this.state.currentUser) {
+    if (this.state.favoriteRoute && this.state.currentUser) {
       icon = assetHelper["gold-star-icon"]
     } else if (this.state.currentUser) {
       icon = assetHelper["black-star-icon"]
     }
-    let favIcon = <img className="fav-line-star fav-star" src={icon}onClick={ this.handleFavoriteLineToggle }></img>
+    let favIcon = <img className="fav-route-star fav-star" src={icon}onClick={ this.handleFavoriteRouteToggle }></img>
 
     let favoritePromptLog;
     if (!this.state.currentUser) {
       favoritePromptLog = <span>  Log in to keep track of frequently used trains!</span>
     }
     return (
-      <div className="train-line-container">
-        <div className="train-line-header">
+      <div className="train-route-container">
+        <div className="train-route-header">
           <LinkBar
           links = { links }
-          currentPage = { this.state.currentLineId }
+          currentPage = { this.state.currentRouteId }
           />
-          <h3>{ this.state.currentLineName } { favIcon }</h3>
+          <h3>{ this.state.currentRouteName } { favIcon }</h3>
           <BranchDropDown
           branches = { this.state.branches }
           currentDirection = { this.state.currentDirectionName }
@@ -198,7 +198,7 @@ class TrainLineContainer extends Component {
           {favoritePromptLog}
         </div>
         <div className="table-div">
-          <table id="line-schedule">
+          <table id="route-schedule">
             <thead><tr><th className="schedule-header-corner schedule-header-row">Train Number</th>{ trainNumsTile }</tr></thead>
             <tbody>
             {allStations}
@@ -210,4 +210,4 @@ class TrainLineContainer extends Component {
   }
 }
 
-export default TrainLineContainer;
+export default RouteContainer;

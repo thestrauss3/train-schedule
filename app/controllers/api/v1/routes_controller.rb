@@ -1,11 +1,11 @@
-class Api::V1::TrainLinesController < ApiController
+class Api::V1::RoutesController < ApiController
   def index
-    lines = TrainLine.all
-    render json: lines
+    routes = Routes.all
+    render json: routes
   end
 
   # def show
-  #   @line = TrainLine.find(params[:id])
-  #   render json: @line
+  #   @route = Route.find(params[:id])
+  #   render json: @route
   # end
 end

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Router, Route, Link, browserHistory, IndexRoute } from 'react-router';
-import TrainLineContainer from './TrainLineContainer';
-import TrainLinesContainer from './TrainLinesContainer';
+import RouteContainer from './RouteContainer';
+import RoutesContainer from './RoutesContainer';
 import HomePage from '../components/HomePage';
 
 class App extends Component {
@@ -14,8 +14,8 @@ class App extends Component {
       <div className="react-body">
         <Router history={browserHistory}>
           <Route path='/' component={HomePage} />
-          <Route path='/train_lines' component={TrainLinesContainer} />
-          <Route path='/train_lines/:id' component={TrainLineContainer} />
+          <Route path='/routes' component={RoutesContainer} />
+          <Route path='/routes/:id' component={RouteContainer} />
           <Route path='/users/:id' />
         </Router>
       </div>

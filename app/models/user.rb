@@ -2,7 +2,7 @@ class User < ApplicationRecord
   validates :provider, :uid, :username, :name, :email, presence: true
   validate :phone_number_must_be_valid
 
-  has_many :user_favorite_lines
+  has_many :user_favorite_routes
   has_many :user_favorite_trains
   has_many :user_favorite_stations
 
