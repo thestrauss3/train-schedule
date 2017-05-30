@@ -11,12 +11,13 @@ gem 'uglifier', '>= 1.3.0'
 gem 'dotenv-rails'
 gem 'omniauth-facebook'
 gem 'omniauth-github'
+gem 'httparty'
+gem 'rufus-scheduler'
 group :development, :test do
   gem 'capybara'
   gem 'factory_girl_rails'
   gem 'pry-rails'
   gem 'rspec-rails', '~> 3.0'
-
   gem 'shoulda'
   gem 'valid_attribute'
 end
