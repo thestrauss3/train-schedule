@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170530160851) do
+ActiveRecord::Schema.define(version: 20170530163704) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -24,12 +24,21 @@ ActiveRecord::Schema.define(version: 20170530160851) do
   end
 
   create_table "stations", force: :cascade do |t|
-    t.string   "name",          null: false
-    t.integer  "train_line_id"
+    t.string   "stop_name",        null: false
+    t.integer  "route_id"
     t.boolean  "has_wifi"
-    t.datetime "created_at",    null: false
-    t.datetime "updated_at",    null: false
-    t.index ["train_line_id"], name: "index_stations_on_train_line_id", using: :btree
+    t.datetime "created_at",       null: false
+    t.datetime "updated_at",       null: false
+    t.integer  "stop_order",       null: false
+    t.string   "stop_id",          null: false
+    t.string   "parent_stop_id"
+    t.string   "parent_stop_name"
+    t.float    "stop_lat"
+    t.float    "stop_lon"
+    t.integer  "direction_id"
+    t.string   "direction_name"
+    t.string   "route_name"
+    t.index ["route_id"], name: "index_stations_on_route_id", using: :btree
   end
 
   create_table "train_stops", force: :cascade do |t|
