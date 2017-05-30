@@ -8,12 +8,12 @@
 # TrainStop.delete_all
 # Train.delete_all
 # Station.delete_all
-TrainLine.delete_all
+Route.delete_all
 # Time.zone = 'EST'
 # # t = Time.zone.now.midnight.getlocal
 # t = Time.new(2017, 1, 1, 0, 0, 0, -5)
 #
-# fram = TrainLine.create(name: "Framingham-Worcester line")
+# fram = Route.create(name: "Framingham-Worcester line")
 #
 # t500 = Train.create(train_num: 500, train_line: fram, inbound: true)
 # t502 = Train.create(train_num: 502, train_line: fram, inbound: true)
@@ -55,7 +55,7 @@ routes = JSON.parse(response.body)["mode"]
 routes.each do |mode|
   mode_name = mode["mode_name"]
   mode["route"].each do |route|
-    TrainLine.create(mode: mode["mode_name"], name: route["route_name"], route_id: route["route_id"])
+    Route.create(mode: mode["mode_name"], name: route["route_name"], route_id: route["route_id"])
   end
 end
 

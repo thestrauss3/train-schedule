@@ -1,4 +1,4 @@
-class TrainLine < ApplicationRecord
+class Route < ApplicationRecord
   validates :name, presence: true
   validates :mode, presence: true
 
