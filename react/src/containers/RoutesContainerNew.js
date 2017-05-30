@@ -22,7 +22,6 @@ class RoutesContainer extends Component {
     fetch('https://realtime.mbta.com/developer/api/v2/routes?api_key=RfQnjyQA7EecUcMOjtbp0Q&format=json')
     .then(response => response.json())
     .then(body => {
-      debugger;
       body.mode.forEach((mode, modeIndex) => {
         mode.route.forEach((route, routeIndex) => {
 
