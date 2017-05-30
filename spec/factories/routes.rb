@@ -1,5 +1,5 @@
 FactoryGirl.define do
-  factory :train_line do
+  factory :route do
     name "Sunset Express"
   end
 end

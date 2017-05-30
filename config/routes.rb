@@ -4,13 +4,13 @@ Rails.application.routes.draw do
   get '/sign_on', to: 'static_pages#sign_on'
   get '/about', to: 'static_pages#about_us'
 
-  resources :train_lines, only: [:index, :show]
+  resources :routes, only: [:index, :show]
   resources :trains, only: [:show]
   resources :users, only: [:show]
 
   namespace :api do
     namespace :v1 do
-      resources :train_lines, only: [:index, :show] do
+      resources :routes, only: [:index, :show] do
         resources :trains, only: [:index]
         resources :stations, only: [:index]
       end
@@ -24,17 +24,17 @@ Rails.application.routes.draw do
       resources :users, only: [:index, :show] do
         resources :trains, only: []
         resources :stations, only: []
-        resources :train_lines, only: []
+        resources :routes, only: []
         collection do
           get 'current_user_id'
-          get 'toggle_favorite_train_line'
+          get 'toggle_favorite_route'
           get 'toggle_favorite_train'
           get 'toggle_favorite_station'
         end
       end
     end
   end
-  
+
   get '/auth/:provider/callback', to: 'sessions#create'
   delete '/logout', to: "sessions#destroy"
   get '*path', to: 'static_pages#error'

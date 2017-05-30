@@ -1,5 +1,5 @@
 class StaticPagesController < ApplicationController
   def home
-    redirect_to train_lines_path
+    # redirect_to routes_path
   end
 end

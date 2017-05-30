@@ -61,7 +61,7 @@ class StationScheduleRow extends Component {
   }
 
   fetchFavorite(toggleFav, props) {
-    fetch(`/api/v1/users/toggle_favorite_station?station=${props.id}&toggle=${toggleFav}&line=${props.line}`, { credentials: 'same-origin' })
+    fetch(`/api/v1/users/toggle_favorite_station?station=${props.id}&toggle=${toggleFav}&route=${props.route}`, { credentials: 'same-origin' })
     .then(response => response.json())
     .then(body => {
       this.setState({ favorite: body });

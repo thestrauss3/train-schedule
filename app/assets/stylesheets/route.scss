@@ -1,8 +1,8 @@
-// Place all the styles related to the TrainLines controller here.
+// Place all the styles related to the Route controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
-#line-schedule, .table-div {
+#route-schedule, .table-div {
   overflow: scroll;
   // display: inline-block;
 }
@@ -18,13 +18,13 @@
   margin-right: -25px;
 }
 
-.fav-line-star {
+.fav-route-star {
   vertical-align: baseline;
   display: inline-block;
 }
 
 
-.train-line-container {
+.route-container {
   overflow-x: auto;
   height: 100%;
 }
