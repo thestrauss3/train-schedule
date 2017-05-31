@@ -13,6 +13,7 @@ gem 'omniauth-facebook'
 gem 'omniauth-github'
 gem 'httparty'
 gem 'rufus-scheduler'
+gem 'gtfs'
 group :development, :test do
   gem 'capybara'
   gem 'factory_girl_rails'
