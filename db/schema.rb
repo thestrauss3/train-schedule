@@ -10,23 +10,24 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170530180820) do
+ActiveRecord::Schema.define(version: 20170531121015) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "routes", force: :cascade do |t|
-    t.string   "name",       null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.string   "mode",       null: false
-    t.string   "route_id",   null: false
+    t.string   "name",                       null: false
+    t.datetime "created_at",                 null: false
+    t.datetime "updated_at",                 null: false
+    t.string   "mode_name",                  null: false
+    t.string   "route_id",                   null: false
+    t.integer  "mode_id",                    null: false
+    t.boolean  "route_hide", default: false
   end
 
   create_table "stations", force: :cascade do |t|
     t.string   "stop_name",        null: false
     t.string   "route_id"
-    t.boolean  "has_wifi"
     t.datetime "created_at",       null: false
     t.datetime "updated_at",       null: false
     t.integer  "stop_order",       null: false
@@ -51,13 +52,18 @@ ActiveRecord::Schema.define(version: 20170530180820) do
     t.index ["train_id"], name: "index_train_stops_on_train_id", using: :btree
   end
 
-  create_table "trains", force: :cascade do |t|
-    t.integer  "train_num",     null: false
-    t.integer  "train_line_id"
-    t.boolean  "inbound"
-    t.datetime "created_at",    null: false
-    t.datetime "updated_at",    null: false
-    t.index ["train_line_id"], name: "index_trains_on_train_line_id", using: :btree
+  create_table "trips", force: :cascade do |t|
+    t.integer  "trip_name",      null: false
+    t.string   "route_id",       null: false
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
+    t.string   "trip_id",        null: false
+    t.string   "route_name",     null: false
+    t.integer  "direction_id",   null: false
+    t.string   "direction_name", null: false
+    t.string   "route_type",     null: false
+    t.string   "mode_name",      null: false
+    t.index ["route_id"], name: "index_trips_on_route_id", using: :btree
   end
 
   create_table "user_favorite_lines", force: :cascade do |t|
