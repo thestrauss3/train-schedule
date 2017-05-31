@@ -19,7 +19,7 @@ ActiveRecord::Schema.define(version: 20170531173210) do
     t.string   "long_name",  null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string   "mode_name",  null: false
+    t.string   "mode_name"
     t.string   "route_id",   null: false
     t.integer  "mode_id",    null: false
     t.string   "short_name", null: false
