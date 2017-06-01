@@ -1,48 +1,73 @@
-# scheduler = Rufus::Scheduler.new
-# scheduler.every '1m' do
-#   puts Time.now
-# end
-
-## Get all Routes
 # Route.delete_all
-# response = HTTParty.get('https://realtime.mbta.com/developer/api/v2/routes?api_key=RfQnjyQA7EecUcMOjtbp0Q&format=json')
-# routes = JSON.parse(response.body)["mode"]
-# routes.each do |mode|
-#   mode["route"].each do |route|
-#     binding.pry
-#     Route.create(name: route["route_name"], route_id: route["route_id"], mode_name: mode["mode_name"], mode_id: mode["route_type"], route_hide: route["route_hide"])
-#   end
+# source = GTFS::Source.build('http://www.mbta.com/uploadedfiles/MBTA_GTFS.zip')
+# routes = source.routes
+# routes.each do |r|
+#   route = Route.create(
+#     long_name: r.long_name,
+#     short_name: r.short_name,
+#     route_id: r.id,
+#     mode_name: r.desc,
+#     mode_id: r.type,
+#     color: r.color
+#   )
 # end
+Route.delete_all
+response = HTTParty.get('https://api.transitfeeds.com/v1/getLocations?key=98729669-6e3a-4cb9-b68d-c89174e81af2')
+data = JSON.parse(response.body)
+locations = data["results"]["locations"]
+us_locations = []
+locations.each do |loc|
+  if loc["t"].include?("USA")
+    us_locations.push loc
+  end
+end
 
-# ## Get all Stations for each Route
-# Station.delete_all
-# Route.all.each do |r|
-#   route_id = r[:route_id]
-#   route_name = r[:name]
-#   response = HTTParty.get("http://realtime.mbta.com/developer/api/v2/stopsbyroute?api_key=RfQnjyQA7EecUcMOjtbp0Q&route=#{route_id}")
-#   all_stations = JSON.parse(response.body)["direction"]
-#   all_stations.each do |direction|
-#     direction_id = direction["direction_id"]
-#     direction_name = direction["direction_name"]
-#     direction["stop"].each do |station|
-#       stop_order = station["stop_order"]
-#       stop_id = station["stop_id"]
-#       stop_name = station["stop_name"]
-#       parent_stop_id = station["parent_station"]
-#       parent_stop_name = station["parent_station_name"]
-#       stop_lat = station["stop_lat"]
-#       stop_lon = station["stop_lon"]
-#       station = Station.create(stop_order: stop_order, stop_id: stop_id, stop_name: stop_name, parent_stop_id: parent_stop_id, parent_stop_name: parent_stop_name, stop_lat: stop_lat, stop_lon: stop_lon, direction_id: direction_id, direction_name: direction_name, route_id: route_id, route_name: route_name)
-#     end
-#   end
-# end
+boston = us_locations[38]
+nyc = us_locations[227]
+ny = us_locations[228]
+sanfran = us_locations[301]
+losang = us_locations[173]
+capecod = us_locations[54]
+cali = us_locations[52]
+mass = us_locations[188]
+sample = [boston, sanfran, losang, capecod, cali, mass]
+agencies_with_bad_links = []
+sample.each do |tran|
+  city = tran["n"]
+  id = tran["id"]
+  response = HTTParty.get("https://api.transitfeeds.com/v1/getFeeds?key=98729669-6e3a-4cb9-b68d-c89174e81af2&location=#{id}&descendants=1&page=1&limit=500&type=gtfs")
+  loc_data = JSON.parse(response.body)
+  loc_data["results"]["feeds"].each do |agency|
+    agency_id = agency["id"]
+    authority = agency["t"].chomp("GTFS").strip
+    begin
+      source = GTFS::Source.build("https://transitfeeds-data.s3-us-west-1.amazonaws.com/public/feeds/#{agency_id}/20170530/gtfs.zip")
+    rescue GTFS::InvalidSourceException
+      puts agency_id + " does not have a valid gtfs link"
+      agencies_with_bad_links.push(agency_id)
+    else
+      routes = source.routes
+      routes.each do |r|
+        # puts "city: #{city}, authority: #{authority}, long_name: #{r.long_name}, short_name: #{r.short_name}, route_id: #{r.id}, description: #{r.desc}, route_type, #{r.type}, route_color: #{r.color}, route_text_color: #{r.text_color}, route_url: #{r.url}, agency_id: #{r.agency_id}"
+        # if city == "New York" && authority == "NYC Subway" && r.long_name == "Staten Island Railway"
+        # end
 
-## Get all Trains for each Route
-# Train.delete_all
-# Route.all.each do |r|
-#   route_id = r[:route_id]
-# end
-# ids = Route.all.pluck(:route_id).join(',')
-# response = HTTParty.get("http://realtime.mbta.com/developer/api/v2/schedulebyroutes?api_key=RfQnjyQA7EecUcMOjtbp0Q&routes=#{ids}")
-# data = (JSON.parse(response.body))["mode"]
-# binding.pry
+        Route.find_or_create_by(
+          city: city,
+          authority: authority,
+          long_name: r.long_name,
+          short_name: r.short_name,
+          route_id: r.id,
+          route_type: r.type
+        ) do |route|
+          route.route_text_color = r.text_color unless r.text_color.blank?
+          route.agency_id = r.agency_id unless r.agency_id.blank?
+          route.route_url = r.url unless r.url.blank?
+          route.route_color = r.color unless r.color.blank?
+          route.description = r.desc unless r.desc.blank?
+        end
+      end #routes.each
+    end #begin, rescue, else
+  end #loc_data...each |agency|
+end #sample.each
+binding.pry
