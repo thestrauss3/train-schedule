@@ -12,8 +12,9 @@ class Route < ApplicationRecord
   # has_many :users, through: :user_favorite_routes
 
   private
+  
   def name_is_present
-    if (self.short_name.empty? && self.long_name.empty?)
+    if self.short_name.empty? && self.long_name.empty?
       self.errors.add :base, 'Route must have a name'
     end
   end
