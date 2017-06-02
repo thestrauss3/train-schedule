@@ -1,0 +1,3 @@
+class StopTime < ApplicationRecord
+  
+end
