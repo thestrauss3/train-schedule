@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170602185224) do
+ActiveRecord::Schema.define(version: 20170602185704) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -166,17 +166,16 @@ ActiveRecord::Schema.define(version: 20170602185224) do
   end
 
   create_table "trips", force: :cascade do |t|
-    t.integer  "trip_name",      null: false
-    t.string   "route_id",       null: false
-    t.datetime "created_at",     null: false
-    t.datetime "updated_at",     null: false
-    t.string   "trip_id",        null: false
-    t.string   "route_name",     null: false
-    t.integer  "direction_id",   null: false
-    t.string   "direction_name", null: false
-    t.string   "route_type",     null: false
-    t.string   "mode_name",      null: false
-    t.index ["route_id"], name: "index_trips_on_route_id", using: :btree
+    t.string  "route_id",              null: false
+    t.string  "service_id",            null: false
+    t.string  "trip_id",               null: false
+    t.string  "trip_headsign"
+    t.string  "trip_short_name"
+    t.integer "direction_id"
+    t.string  "block_id"
+    t.string  "shape_id"
+    t.integer "wheelchair_accessible"
+    t.integer "bikes_allowed"
   end
 
   create_table "user_favorite_lines", force: :cascade do |t|
