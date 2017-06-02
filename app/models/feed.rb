@@ -5,6 +5,6 @@ class Feed < ApplicationRecord
   private
 
   def feed_date_range
-    #ensure feed_start_date < feed_end_date
+    # ensure feed_start_date < feed_end_date
   end
 end
