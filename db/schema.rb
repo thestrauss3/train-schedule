@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170602163008) do
+ActiveRecord::Schema.define(version: 20170602164739) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -69,6 +69,14 @@ ActiveRecord::Schema.define(version: 20170602163008) do
     t.date   "feed_start_date"
     t.date   "feed_end_date"
     t.string "feed_version"
+  end
+
+  create_table "frequencies", force: :cascade do |t|
+    t.string  "trip_id",                      null: false
+    t.string  "start_time",                   null: false
+    t.string  "end_time",                     null: false
+    t.string  "headway_secs",                 null: false
+    t.boolean "exact_times",  default: false, null: false
   end
 
   create_table "routes", force: :cascade do |t|
