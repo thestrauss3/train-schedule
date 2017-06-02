@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170602021632) do
+ActiveRecord::Schema.define(version: 20170602153340) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -24,6 +24,34 @@ ActiveRecord::Schema.define(version: 20170602021632) do
     t.string  "phone"
     t.string  "fare_url"
     t.string  "email"
+  end
+
+  create_table "calendar_dates", force: :cascade do |t|
+    t.string  "service_id",     null: false
+    t.date    "date",           null: false
+    t.boolean "exception_type", null: false
+  end
+
+  create_table "calendars", force: :cascade do |t|
+    t.string  "service_id", null: false
+    t.boolean "monday",     null: false
+    t.boolean "tuesday",    null: false
+    t.boolean "wednesday",  null: false
+    t.boolean "thursday",   null: false
+    t.boolean "friday",     null: false
+    t.boolean "saturday",   null: false
+    t.boolean "sunday",     null: false
+    t.date    "start_date", null: false
+    t.date    "end_date",   null: false
+  end
+
+  create_table "fare_attributes", force: :cascade do |t|
+    t.string  "fare_id",           null: false
+    t.float   "price",             null: false
+    t.string  "currency_type",     null: false
+    t.integer "payment_method",    null: false
+    t.integer "transfers",         null: false
+    t.integer "transfer_duration"
   end
 
   create_table "routes", force: :cascade do |t|
