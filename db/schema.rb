@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170602153340) do
+ActiveRecord::Schema.define(version: 20170602162232) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -52,6 +52,14 @@ ActiveRecord::Schema.define(version: 20170602153340) do
     t.integer "payment_method",    null: false
     t.integer "transfers",         null: false
     t.integer "transfer_duration"
+  end
+
+  create_table "fare_rules", force: :cascade do |t|
+    t.string "fare_id",        null: false
+    t.string "route_id"
+    t.string "origin_id"
+    t.string "destination_id"
+    t.string "contains_id"
   end
 
   create_table "routes", force: :cascade do |t|

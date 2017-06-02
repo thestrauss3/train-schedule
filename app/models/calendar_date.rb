@@ -1,0 +1,3 @@
+class CalendarDate < ApplicationRecord
+
+end

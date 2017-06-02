@@ -1,0 +1,3 @@
+class FareAttribute < ApplicationRecord
+
+end
