@@ -10,20 +10,20 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170602185704) do
+ActiveRecord::Schema.define(version: 20170602194322) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "agencies", force: :cascade do |t|
-    t.integer "agency_id", default: 0, null: false
-    t.string  "name",                  null: false
-    t.string  "url",                   null: false
-    t.string  "timezone",              null: false
-    t.string  "lang"
-    t.string  "phone"
-    t.string  "fare_url"
-    t.string  "email"
+    t.integer "agency_id",       default: 0, null: false
+    t.string  "agency_name",                 null: false
+    t.string  "agency_url",                  null: false
+    t.string  "agency_timezone",             null: false
+    t.string  "agency_lang"
+    t.string  "agency_phone"
+    t.string  "agency_fare_url"
+    t.string  "agency_email"
   end
 
   create_table "calendar_dates", force: :cascade do |t|
@@ -80,13 +80,13 @@ ActiveRecord::Schema.define(version: 20170602185704) do
   end
 
   create_table "routes", force: :cascade do |t|
-    t.string   "long_name",                    null: false
+    t.string   "route_long_name",              null: false
     t.datetime "created_at",                   null: false
     t.datetime "updated_at",                   null: false
     t.string   "description"
     t.string   "route_id",                     null: false
     t.integer  "route_type",                   null: false
-    t.string   "short_name",                   null: false
+    t.string   "route_short_name",             null: false
     t.string   "route_color"
     t.string   "route_url"
     t.string   "authority",                    null: false

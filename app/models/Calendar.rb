@@ -1,5 +1,3 @@
 class Calendar < ApplicationRecord
-  # self.primary_key = "agency_id"
-
-  # validates :agency_id, :name, :url, :timezone, presence: true
+  validates :service_id, :monday, :tuesday, :wednesday, :thursday, :friday, :saturday, :sunday, :start_date, :end_date, presence: true
 end
