@@ -66,6 +66,7 @@ sample.each do |tran|
           route.route_color = r.color unless r.color.blank?
           route.description = r.desc unless r.desc.blank?
         end
+        binding.pry
       end #routes.each
     end #begin, rescue, else
   end #loc_data...each |agency|
