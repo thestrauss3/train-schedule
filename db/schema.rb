@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170602164739) do
+ActiveRecord::Schema.define(version: 20170602172255) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -93,6 +93,14 @@ ActiveRecord::Schema.define(version: 20170602164739) do
     t.string   "city",                         null: false
     t.integer  "agency_id",        default: 0, null: false
     t.string   "route_text_color"
+  end
+
+  create_table "shapes", force: :cascade do |t|
+    t.string  "shape_id",            null: false
+    t.decimal "shape_pt_lat",        null: false
+    t.decimal "shape_pt_lon",        null: false
+    t.integer "shape_pt_sequence",   null: false
+    t.float   "shape_dist_traveled"
   end
 
   create_table "stations", force: :cascade do |t|
