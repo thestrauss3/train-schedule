@@ -10,24 +10,35 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170601114145) do
+ActiveRecord::Schema.define(version: 20170602021632) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
+  create_table "agencies", force: :cascade do |t|
+    t.integer "agency_id", default: 0, null: false
+    t.string  "name",                  null: false
+    t.string  "url",                   null: false
+    t.string  "timezone",              null: false
+    t.string  "lang"
+    t.string  "phone"
+    t.string  "fare_url"
+    t.string  "email"
+  end
+
   create_table "routes", force: :cascade do |t|
-    t.string   "long_name",        null: false
-    t.datetime "created_at",       null: false
-    t.datetime "updated_at",       null: false
+    t.string   "long_name",                    null: false
+    t.datetime "created_at",                   null: false
+    t.datetime "updated_at",                   null: false
     t.string   "description"
-    t.string   "route_id",         null: false
-    t.integer  "route_type",       null: false
-    t.string   "short_name",       null: false
+    t.string   "route_id",                     null: false
+    t.integer  "route_type",                   null: false
+    t.string   "short_name",                   null: false
     t.string   "route_color"
     t.string   "route_url"
-    t.string   "authority",        null: false
-    t.string   "city",             null: false
-    t.integer  "agency_id"
+    t.string   "authority",                    null: false
+    t.string   "city",                         null: false
+    t.integer  "agency_id",        default: 0, null: false
     t.string   "route_text_color"
   end
 
