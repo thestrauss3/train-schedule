@@ -1,6 +1,7 @@
 AllCops:
   Exclude:
     - db/schema.rb
+    - app/models/gtfs/*.rb
   #DisplayCopNames: true
 
 AccessorMethodName:
