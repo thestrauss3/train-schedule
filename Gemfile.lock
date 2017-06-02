@@ -85,10 +85,6 @@ GEM
       sprockets-es6 (>= 0.9.0)
     globalid (0.4.0)
       activesupport (>= 4.2.0)
-    gtfs (0.2.5)
-      multi_json
-      rake
-      rubyzip (~> 1.1)
     hashie (3.5.5)
     httparty (0.15.5)
       multi_xml (>= 0.5.2)
@@ -259,7 +255,6 @@ DEPENDENCIES
   dotenv-rails
   factory_girl_rails
   foundation-rails (= 6.3.1.0)
-  gtfs
   httparty
   jquery-rails
   launchy
@@ -272,6 +267,7 @@ DEPENDENCIES
   rails (= 5.0.0.1)
   rails_12factor
   rspec-rails (~> 3.0)
+  rubyzip
   rufus-scheduler
   sass-rails (~> 5.0)
   shoulda

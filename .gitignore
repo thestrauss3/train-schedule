@@ -23,7 +23,7 @@
 /coverage
 
 .env
-user-stores.md
+user-stories.md
 yarn.lock
 
 # Ignore GTFS files
