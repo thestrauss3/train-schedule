@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170602183818) do
+ActiveRecord::Schema.define(version: 20170602185224) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -156,6 +156,13 @@ ActiveRecord::Schema.define(version: 20170602183818) do
     t.datetime "updated_at", null: false
     t.index ["station_id"], name: "index_train_stops_on_station_id", using: :btree
     t.index ["train_id"], name: "index_train_stops_on_train_id", using: :btree
+  end
+
+  create_table "transfers", force: :cascade do |t|
+    t.string  "from_stop_id",      null: false
+    t.string  "to_stop_id",        null: false
+    t.integer "transfer_type",     null: false
+    t.integer "min_transfer_time"
   end
 
   create_table "trips", force: :cascade do |t|
