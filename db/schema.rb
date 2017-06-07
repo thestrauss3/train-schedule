@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170607003634) do
+ActiveRecord::Schema.define(version: 20170607011147) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -24,12 +24,14 @@ ActiveRecord::Schema.define(version: 20170607003634) do
     t.string  "agency_phone"
     t.string  "agency_fare_url"
     t.string  "agency_email"
+    t.integer "feed_id",                     null: false
   end
 
   create_table "calendar_dates", force: :cascade do |t|
     t.string  "service_id",     null: false
     t.date    "date",           null: false
     t.boolean "exception_type", null: false
+    t.integer "feed_id",        null: false
   end
 
   create_table "calendars", force: :cascade do |t|
@@ -43,6 +45,7 @@ ActiveRecord::Schema.define(version: 20170607003634) do
     t.boolean "sunday",     null: false
     t.date    "start_date", null: false
     t.date    "end_date",   null: false
+    t.integer "feed_id",    null: false
   end
 
   create_table "fare_attributes", force: :cascade do |t|
@@ -52,14 +55,16 @@ ActiveRecord::Schema.define(version: 20170607003634) do
     t.integer "payment_method",    null: false
     t.integer "transfers",         null: false
     t.integer "transfer_duration"
+    t.integer "feed_id",           null: false
   end
 
   create_table "fare_rules", force: :cascade do |t|
-    t.string "fare_id",        null: false
-    t.string "route_id"
-    t.string "origin_id"
-    t.string "destination_id"
-    t.string "contains_id"
+    t.string  "fare_id",        null: false
+    t.string  "route_id"
+    t.string  "origin_id"
+    t.string  "destination_id"
+    t.string  "contains_id"
+    t.integer "feed_id",        null: false
   end
 
   create_table "feeds", force: :cascade do |t|
@@ -77,6 +82,7 @@ ActiveRecord::Schema.define(version: 20170607003634) do
     t.string  "end_time",                     null: false
     t.string  "headway_secs",                 null: false
     t.boolean "exact_times",  default: false, null: false
+    t.integer "feed_id",                      null: false
   end
 
   create_table "routes", force: :cascade do |t|
@@ -89,10 +95,9 @@ ActiveRecord::Schema.define(version: 20170607003634) do
     t.string   "route_short_name",             null: false
     t.string   "route_color"
     t.string   "route_url"
-    t.string   "authority",                    null: false
-    t.string   "city",                         null: false
     t.integer  "agency_id",        default: 0, null: false
     t.string   "route_text_color"
+    t.integer  "feed_id",                      null: false
   end
 
   create_table "shapes", force: :cascade do |t|
@@ -101,6 +106,7 @@ ActiveRecord::Schema.define(version: 20170607003634) do
     t.decimal "shape_pt_lon",        null: false
     t.integer "shape_pt_sequence",   null: false
     t.float   "shape_dist_traveled"
+    t.integer "feed_id",             null: false
   end
 
   create_table "stations", force: :cascade do |t|
@@ -117,6 +123,7 @@ ActiveRecord::Schema.define(version: 20170607003634) do
     t.integer  "direction_id"
     t.string   "direction_name"
     t.string   "route_name"
+    t.integer  "feed_id",          null: false
     t.index ["route_id"], name: "index_stations_on_route_id", using: :btree
   end
 
@@ -131,6 +138,7 @@ ActiveRecord::Schema.define(version: 20170607003634) do
     t.integer "drop_off_type",       default: 0
     t.float   "shape_dist_traveled"
     t.integer "timepoint"
+    t.integer "feed_id",                         null: false
   end
 
   create_table "stops", force: :cascade do |t|
@@ -146,6 +154,7 @@ ActiveRecord::Schema.define(version: 20170607003634) do
     t.string  "parent_station"
     t.string  "stop_timezone"
     t.integer "wheelchair_boarding"
+    t.integer "feed_id",             null: false
   end
 
   create_table "train_stops", force: :cascade do |t|
@@ -163,6 +172,7 @@ ActiveRecord::Schema.define(version: 20170607003634) do
     t.string  "to_stop_id",        null: false
     t.integer "transfer_type",     null: false
     t.integer "min_transfer_time"
+    t.integer "feed_id",           null: false
   end
 
   create_table "trips", force: :cascade do |t|
@@ -176,6 +186,7 @@ ActiveRecord::Schema.define(version: 20170607003634) do
     t.string  "shape_id"
     t.integer "wheelchair_accessible"
     t.integer "bikes_allowed"
+    t.integer "feed_id",               null: false
   end
 
   create_table "user_favorite_lines", force: :cascade do |t|
