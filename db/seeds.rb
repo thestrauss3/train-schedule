@@ -1,3 +1,4 @@
+# transitfeeds #getLocations
 response = HTTParty.get('https://api.transitfeeds.com/v1/getLocations?key=98729669-6e3a-4cb9-b68d-c89174e81af2')
 data = JSON.parse(response.body)
 locations = data["results"]["locations"]
@@ -15,44 +16,57 @@ losang = us_locations[173]
 capecod = us_locations[54]
 cali = us_locations[52]
 mass = us_locations[188]
-sample = [boston, sanfran, losang, capecod, cali, mass]
+sample = [boston]
 
-# Route.delete_all
-agencies_with_bad_links = []
-sample.each do |tran|
-  city = tran["n"]
-  id = tran["id"]
+Route.delete_all
+feeds_with_bad_links = []
+sample.each do |loc|
+  id = loc["id"]
+  # transit feeds: #getFeeds
   response = HTTParty.get("https://api.transitfeeds.com/v1/getFeeds?key=98729669-6e3a-4cb9-b68d-c89174e81af2&location=#{id}&descendants=1&page=1&limit=500&type=gtfs")
   loc_data = JSON.parse(response.body)
-  loc_data["results"]["feeds"].each do |agency|
-    agency_id = agency["id"]
-    authority = agency["t"].chomp("GTFS").strip
+  loc_data["results"]["feeds"].each do |feed|
+    # binding.pry
+    feed_id = feed["id"]
+    location = feed["l"]["t"]
+    city = feed["l"]["n"]
+    authority = feed["t"].chomp("GTFS").strip
     begin
-      source = GTFS::Source.build("https://transitfeeds-data.s3-us-west-1.amazonaws.com/public/feeds/#{agency_id}/20170530/gtfs.zip")
-    rescue GTFS::InvalidSourceException
-      puts agency_id + " does not have a valid gtfs link"
-      agencies_with_bad_links.push(agency_id)
-    else
-      # routes = source.routes
-      # routes.each do |r|
-      #   Route.find_or_create_by(
-      #     city: city,
-      #     authority: authority,
-      #     long_name: r.long_name,
-      #     short_name: r.short_name,
-      #     route_id: r.id,
-      #     route_type: r.type
-      #   ) do |route|
-      #     route.route_text_color = r.text_color unless r.text_color.blank?
-      #     route.agency_id = r.agency_id unless r.agency_id.blank?
-      #     route.route_url = r.url unless r.url.blank?
-      #     route.route_color = r.color unless r.color.blank?
-      #     route.description = r.desc unless r.desc.blank?
-      #   end
-      # end #routes.each
-      agencies = source.agencies
-      binding.pry
+      transit_feed_url = "https://api.transitfeeds.com/v1/getLatestFeedVersion?key=98729669-6e3a-4cb9-b68d-c89174e81af2&feed=#{feed_id.gsub('/', '%2F')}"
+      source = GTFS::Source.build(transit_feed_url, strict: false)
 
+    rescue GTFS::InvalidSourceException
+      puts feed_id + " feed does not have a valid gtfs link"
+      feeds_with_bad_links.push(feed_id)
+    else
+      routes = source.routes
+      routes.each do |r|
+        Route.find_or_create_by(
+          city: city,
+          authority: authority,
+          route_id: r.id
+        ) do |route|
+          route.route_long_name = r.long_name ? r.long_name : ""
+          route.route_short_name = r.short_name ? r.short_name : ""
+          route.route_type = r.type
+          route.route_text_color = r.text_color unless r.text_color.blank?
+          route.agency_id = r.agency_id unless r.agency_id.blank?
+          route.route_url = r.url unless r.url.blank?
+          route.route_color = r.color unless r.color.blank?
+          route.description = r.desc unless r.desc.blank?
+        end
+      end #routes.each
+      # agencies = source.agencies
+      # binding.pry
+      # agencies.each do |a|
+      #   Agency.find_or_create_by(
+      #     city: city,
+      #     authority: authority
+      #   ) do |agency|
+      #
+      #   end
+      # end #agencies.each
+      binding.pry
     end #begin, rescue, else
   end #loc_data...each |agency|
 end #sample.each
