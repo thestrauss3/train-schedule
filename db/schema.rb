@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170602194322) do
+ActiveRecord::Schema.define(version: 20170607003634) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -65,7 +65,7 @@ ActiveRecord::Schema.define(version: 20170602194322) do
   create_table "feeds", force: :cascade do |t|
     t.string "feed_publisher_name", null: false
     t.string "feed_publisher_url",  null: false
-    t.string "feed_land",           null: false
+    t.string "feed_lang",           null: false
     t.date   "feed_start_date"
     t.date   "feed_end_date"
     t.string "feed_version"

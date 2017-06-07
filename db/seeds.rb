@@ -39,8 +39,25 @@ sample.each do |loc|
       puts feed_id + " feed does not have a valid gtfs link"
       feeds_with_bad_links.push(feed_id)
     else
-      routes = source.routes
-      routes.each do |r|
+      feed_info = source.feed_infos[0]
+      binding.pry
+
+      current_feed = Feed.find_or_create_by(
+        feed_publisher_name: feed_info.publisher_name
+      ) do |feed|
+        feed.feed_publisher_url = feed_info.publisher_url
+        feed.feed_lang = feed_info.lang
+        feed.feed_start_date = feed_info.start_date
+        feed.feed_end_date = feed_info.end_date
+        feed.feed_version = feed_info.version
+      end
+      feed_id = current_feed.id
+      binding.pry
+      if source.feed_infos.length > 1
+        binding.pry
+      end
+
+      source.routes.each do |r|
         Route.find_or_create_by(
           city: city,
           authority: authority,
@@ -56,6 +73,7 @@ sample.each do |loc|
           route.description = r.desc unless r.desc.blank?
         end
       end #routes.each
+
       # agencies = source.agencies
       # binding.pry
       # agencies.each do |a|
@@ -66,7 +84,6 @@ sample.each do |loc|
       #
       #   end
       # end #agencies.each
-      binding.pry
     end #begin, rescue, else
   end #loc_data...each |agency|
 end #sample.each
