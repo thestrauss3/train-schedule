@@ -40,7 +40,6 @@ sample.each do |loc|
       feeds_with_bad_links.push(feed_id)
     else
       feed_info = source.feed_infos[0]
-      binding.pry
 
       current_feed = Feed.find_or_create_by(
         feed_publisher_name: feed_info.publisher_name
@@ -52,15 +51,14 @@ sample.each do |loc|
         feed.feed_version = feed_info.version
       end
       feed_id = current_feed.id
-      binding.pry
+
       if source.feed_infos.length > 1
         binding.pry
       end
 
       source.routes.each do |r|
         Route.find_or_create_by(
-          city: city,
-          authority: authority,
+          feed_id: feed_id,
           route_id: r.id
         ) do |route|
           route.route_long_name = r.long_name ? r.long_name : ""

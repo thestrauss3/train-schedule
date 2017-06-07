@@ -1,3 +1,3 @@
 class Trip < ApplicationRecord
-  validates :route_id, :service_id, :trip_id, presence: true
+  validates :feed_id, :route_id, :service_id, :trip_id, presence: true
 end
