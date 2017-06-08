@@ -9,6 +9,8 @@ module GTFS
         file_name = File.join(tmp, "/gtfs_temp_#{Time.now.strftime('%Y%jT%H%M%S%z')}.zip")
         uri = URI.parse(source_url)
         response = Net::HTTP.get_response(uri)
+        new_uri = URI.parse(response['location'])
+        response = Net::HTTP.get_response(new_uri)
         open(file_name, 'wb') do |file|
           file.write response.body
         end

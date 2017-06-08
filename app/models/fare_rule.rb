@@ -1,3 +1,3 @@
 class FareRule < ApplicationRecord
-  validates :fare_id, presence: true
+  validates :feed_id, :fare_id, presence: true
 end
