@@ -1,5 +1,9 @@
 feeds_with_bad_links = []
 
+def raise_if_too_much_data(source)
+  raise "Too much data" if source.stop_times.count > 1000
+end
+
 def get_locations
   response = HTTParty.get('https://api.transitfeeds.com/v1/getLocations?key=98729669-6e3a-4cb9-b68d-c89174e81af2')
   data = JSON.parse(response.body)
@@ -11,31 +15,41 @@ def get_locations
     end
   end
   boston = us_locations[38]
-  # nyc = us_locations[227]
-  # ny = us_locations[228]
-  # sanfran = us_locations[301]
-  # losang = us_locations[173]
-  # capecod = us_locations[54]
-  # cali = us_locations[52]
-  # mass = us_locations[188]
-  sample = [boston]
+  nyc = us_locations[227]
+  ny = us_locations[228]
+  sanfran = us_locations[301]
+  losang = us_locations[173]
+  capecod = us_locations[54]
+  cali = us_locations[52]
+  mass = us_locations[188]
+  sample = [boston, nyc, ny, sanfran, losang, capecod, cali, mass]
   return sample
 end
 
 def build_feed_info(source)
-  if source.feed_infos.length > 1
-    binding.pry
-  end
-  feed_info = source.feed_infos[0]
-
-  current_feed = Feed.find_or_create_by(
-    feed_publisher_name: feed_info.publisher_name
-  ) do |feed_model|
-    feed_model.feed_publisher_url = feed_info.publisher_url
-    feed_model.feed_lang = feed_info.lang
-    feed_model.feed_start_date = feed_info.start_date unless feed_info.start_date.blank?
-    feed_model.feed_end_date = feed_info.end_date unless feed_info.end_date.blank?
-    feed_model.feed_version = feed_info.version unless feed_info.version.blank?
+  # if source.feed_infos.length > 1
+  #   binding.pry
+  # end
+  # binding.p ry
+  begin
+    feed_info = source.feed_infos[0]
+  rescue GTFS::InvalidSourceException
+    current_feed = Feed.find_or_create_by(
+      feed_publisher_name: source.agencies[0].name
+    ) do |feed_model|
+      feed_model.feed_publisher_url ||= source.agencies[0].url
+      feed_model.feed_lang ||= source.agencies[0].lang
+    end
+  else
+    current_feed = Feed.find_or_create_by(
+      feed_publisher_name: feed_info.publisher_name
+    ) do |feed_model|
+      feed_model.feed_publisher_url = feed_info.publisher_url
+      feed_model.feed_lang = feed_info.lang
+      feed_model.feed_start_date = feed_info.start_date unless feed_info.start_date.blank?
+      feed_model.feed_end_date = feed_info.end_date unless feed_info.end_date.blank?
+      feed_model.feed_version = feed_info.version unless feed_info.version.blank?
+    end
   end
   return current_feed.id
 end
@@ -167,6 +181,8 @@ def build_calendar_dates(source, feed_id)
       date.exception_type = d.exception_type
     end
   end
+rescue GTFS::InvalidSourceException
+  # binding.pry
 end
 
 def build_fare_attributes(source, feed_id)
@@ -182,6 +198,8 @@ def build_fare_attributes(source, feed_id)
       fare_attribute.transfer_duration = fa.transfer_duration
     end
   end
+rescue GTFS::InvalidSourceException
+  # binding.pry
 end
 
 def build_fare_rules(source, feed_id)
@@ -196,6 +214,8 @@ def build_fare_rules(source, feed_id)
       fare_rule.contains_id = fr.contains_id
     end
   end
+rescue GTFS::InvalidSourceException
+  # binding.pry
 end
 
 def build_frequencies(source, feed_id)
@@ -210,6 +230,8 @@ def build_frequencies(source, feed_id)
       frequency.exact_times = f.exact_times == 1
     end
   end
+rescue GTFS::InvalidSourceException
+  # binding.pry
 end
 
 def build_shapes(source, feed_id)
@@ -224,6 +246,8 @@ def build_shapes(source, feed_id)
       shape.shape_dist_traveled = sh.dist_traveled
     end
   end
+rescue GTFS::InvalidSourceException
+  # binding.pry
 end
 
 def build_transfers(source, feed_id)
@@ -236,6 +260,8 @@ def build_transfers(source, feed_id)
       min_transfer_time: tx.min_transfer_time
     )
   end
+rescue GTFS::InvalidSourceException
+  # binding.pry
 end
 
 get_locations.each do |loc|
@@ -245,29 +271,32 @@ get_locations.each do |loc|
   loc_data = JSON.parse(response.body)
   loc_data["results"]["feeds"].each do |feed|
     feed_id = feed["id"]
+    transit_feed_url = "https://api.transitfeeds.com/v1/getLatestFeedVersion?key=98729669-6e3a-4cb9-b68d-c89174e81af2&feed=#{feed_id.gsub('/', '%2F')}"
     begin
-      transit_feed_url = "https://api.transitfeeds.com/v1/getLatestFeedVersion?key=98729669-6e3a-4cb9-b68d-c89174e81af2&feed=#{feed_id.gsub('/', '%2F')}"
       source = GTFS::Source.build(transit_feed_url, strict: false)
-
     rescue GTFS::InvalidSourceException
       puts feed_id + " feed does not have a valid gtfs link"
       feeds_with_bad_links.push(feed_id)
     else
-      feed_id = build_feed_info(source)
-      # required files:
-      build_agencies(source, feed_id)
-      build_calendars(source, feed_id)
+      # binding.pry
+      # feed_id = build_feed_info(source)
+      # binding.pry
+      # # required files:
+      # build_agencies(source, feed_id)
+      # build_calendars(source, feed_id)
       build_routes(source, feed_id)
-      build_stops(source, feed_id)
-      build_stop_times(source, feed_id)
-      build_trips(source, feed_id)
-      # optional files:
-      build_calendar_dates(source, feed_id)
-      build_fare_attributes(source, feed_id)
-      build_fare_rules(source, feed_id)
-      build_frequencies(source, feed_id)
-      build_shapes(source, feed_id)
-      build_transfers(source, feed_id)
-    end
-  end
+      puts "Created routes for #{feed_id}"
+      # build_stops(source, feed_id)
+      # build_stop_times(source, feed_id)
+      # build_trips(source, feed_id)
+      # # optional files:
+      # build_calendar_dates(source, feed_id)
+      # build_fare_attributes(source, feed_id)
+      # build_fare_rules(source, feed_id)
+      # build_frequencies(source, feed_id)
+      # build_shapes(source, feed_id)
+      # build_transfers(source, feed_id)
+    end # rescue GTFS::InvalidSourceException
+  end # .each do |feed|
 end
+binding.pry
