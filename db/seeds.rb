@@ -299,4 +299,4 @@ get_locations.each do |loc|
     end # rescue GTFS::InvalidSourceException
   end # .each do |feed|
 end
-binding.pry
+# binding.pry
